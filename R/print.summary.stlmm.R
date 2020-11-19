@@ -1,3 +1,14 @@
+#' Title
+#'
+#' @param x
+#' @param digits
+#' @param signif.stars
+#' @param ...
+#' @import stats
+#' @return
+#' @export
+#'
+#' @examples
 print.summary.stlmm <- function(x,
                                 digits = max(3L, getOption("digits") - 3L),
                                 signif.stars = getOption("show.signif.stars"),

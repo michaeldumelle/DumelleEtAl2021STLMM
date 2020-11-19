@@ -1,3 +1,12 @@
+#' Title
+#'
+#' @param invert_object
+#' @import stats
+#'
+#' @return
+#' @export
+#'
+#' @examples
 invert <- function(invert_object) {
   UseMethod("invert", object = invert_object)
 }

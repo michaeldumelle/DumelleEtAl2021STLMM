@@ -1,3 +1,25 @@
+#' Title
+#'
+#' @param covparam_object
+#' @param chol
+#' @param co
+#' @param condition
+#' @param h_s_large
+#' @param h_t_large
+#' @param h_s_small
+#' @param h_t_small
+#' @param logdet
+#' @param m_index
+#' @param o_index
+#' @param s_cor
+#' @param t_cor
+#' @param xo
+#' @param yo
+#' @import stats
+#' @return
+#' @export
+#'
+#' @examples
 make_invert_object <- function(covparam_object,
                                chol,
                                co = NULL,

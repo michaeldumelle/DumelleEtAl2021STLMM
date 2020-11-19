@@ -1,3 +1,15 @@
+#' Title
+#'
+#' @param newdata_coord1
+#' @param data_coord1
+#' @param newdata_coord2
+#' @param data_coord2
+#' @param distmetric
+#' @import stats
+#' @return
+#' @export
+#'
+#' @examples
 make_newdata_h <- function(newdata_coord1, data_coord1, newdata_coord2 = NULL, data_coord2 = NULL, distmetric = "euclidean") {
 
   # show the available distance metrics

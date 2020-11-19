@@ -1,3 +1,13 @@
+#' Title
+#'
+#' @param h
+#' @param range
+#' @param structure
+#' @import stats
+#' @return
+#' @export
+#'
+#' @examples
 make_r <- function(h, range, structure = c("exponential", "spherical", "gaussian", "tent")) {
 
   # call the appropriate correlation function

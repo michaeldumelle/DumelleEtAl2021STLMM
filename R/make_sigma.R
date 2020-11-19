@@ -1,3 +1,16 @@
+#' Title
+#'
+#' @param de
+#' @param r_mx
+#' @param ie
+#' @param v_ie
+#' @param e
+#' @param scale
+#' @import stats
+#' @return
+#' @export
+#'
+#' @examples
 make_sigma <- function(de, r_mx, ie, v_ie, e = 1, scale = FALSE) {
 
   # a warning message if the diagonal bug (being slightly greater than 1) appears

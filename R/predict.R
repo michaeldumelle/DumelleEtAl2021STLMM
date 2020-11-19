@@ -1,3 +1,16 @@
+#' Title
+#'
+#' @param object
+#' @param newdata
+#' @param interval
+#' @param se.fit
+#' @param predcov
+#' @param ...
+#' @import stats
+#' @return
+#' @export
+#'
+#' @examples
 predict.stlmm <- function(object,
                           newdata,
                           interval = c("none", "confidence", "prediction"),

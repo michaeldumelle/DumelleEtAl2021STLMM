@@ -1,3 +1,15 @@
+#' Title
+#'
+#' @param object
+#' @param mu
+#' @param size
+#' @param condition
+#' @param ...
+#' @import stats
+#' @return
+#' @export
+#'
+#' @examples
 strnorm <- function(object, mu, size, condition, ...) {
 
   # dispatching the appropriate generic

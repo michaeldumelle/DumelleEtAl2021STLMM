@@ -1,3 +1,23 @@
+#' Title
+#'
+#' @param initial
+#' @param estmethod
+#' @param stcov
+#' @param s_cor
+#' @param t_cor
+#' @param data_object
+#' @param weights
+#' @param chol
+#' @param condition
+#' @param max_options
+#' @param optim_options
+#' @param stempsv_options
+#' @import stats
+#'
+#' @return
+#' @export
+#'
+#' @examples
 make_covest_object <- function(initial = NULL,
                                estmethod,
                                stcov,

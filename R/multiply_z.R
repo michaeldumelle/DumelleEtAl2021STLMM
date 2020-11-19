@@ -1,3 +1,15 @@
+#' Title
+#'
+#' @param mx
+#' @param z_type
+#' @param n_s
+#' @param n_t
+#' @param side
+#' @import stats
+#' @return
+#' @export
+#'
+#' @examples
 multiply_z <- function(mx, z_type, n_s, n_t, side = c("right", "left", "p_right", "p_left", "pz_z", "z_pz")) {
 
   # show the appropriate multiplication side arguments

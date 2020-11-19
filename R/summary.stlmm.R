@@ -1,3 +1,11 @@
+#' Title
+#'
+#' @param object
+#' @import stats
+#' @return
+#' @export
+#'
+#' @examples
 summary.stlmm <- function(object) {
 
   # store the formula

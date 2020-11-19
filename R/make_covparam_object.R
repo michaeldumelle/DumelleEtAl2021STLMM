@@ -1,3 +1,22 @@
+#' Title
+#'
+#' @param s_de
+#' @param s_ie
+#' @param t_de
+#' @param t_ie
+#' @param st_de
+#' @param st_ie
+#' @param v_s
+#' @param v_t
+#' @param s_range
+#' @param t_range
+#' @param estmethod
+#' @param stcov
+#' @import stats
+#' @return
+#' @export
+#'
+#' @examples
 make_covparam_object <- function(s_de,
                                  s_ie,
                                  t_de,

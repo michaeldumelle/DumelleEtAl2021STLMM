@@ -1,3 +1,11 @@
+#' Title
+#'
+#' @param factor_index
+#' @import stats
+#' @return
+#' @export
+#'
+#' @examples
 make_z_factor <- function(factor_index) {
 
   # if factor_index is not a character vector, store it as one

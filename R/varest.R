@@ -1,3 +1,12 @@
+#' Title
+#'
+#' @param invert_object
+#' @param invert_output
+#' @import stats
+#' @return
+#' @export
+#'
+#' @examples
 varest <- function(invert_object, invert_output) {
 
   # calling the appropriate generic

@@ -1,11 +1,13 @@
-# computing simulations
-fsim <- function(i) {
-# running the simulations
+library(parallel)
+library(tidyverse)
 
-  ## load libraries
-  library(devtools)
-  library(tidyverse) # includes purrr
-  load_all()
+fsims <- function(nosimseed) {
+  # running the simulations
+  #set.seed(simseed)
+  library(purrr)
+  for (f in list.files("C:/Users/mdumelle/OneDrive - Environmental Protection Agency (EPA)/Profile/Documents/STLMM/DumelleEtAl2021STLMM/R", pattern="*.R")) {
+    source(paste("C:/Users/mdumelle/OneDrive - Environmental Protection Agency (EPA)/Profile/Documents/STLMM/DumelleEtAl2021STLMM/R", f, sep = "/"))
+  }
 
   ## sample sizes
   n_s <- 30
@@ -83,10 +85,12 @@ fsim <- function(i) {
 
   data$response <- as.vector(strnorm(stcovariance, data$mu, size = 1))
 
+
   ## simulating missing values
   n_m <- 25
   data$observed <- sample(c(rep(TRUE, n_st - n_m), rep(FALSE, n_m)), size = n_st, replace = F)
 
+  datafail <<- data
   ## make intial value function
   create_siminitial <- function(s_de, s_ie, t_de, t_ie, st_de, st_ie, s_range, t_range, sd_scaling) {
 
@@ -175,14 +179,14 @@ fsim <- function(i) {
       estmethod = "svwls"
     )
 
-   siminitial <- list(
-     ps_reml = ps_reml,
-     ps_svwls = ps_svwls,
-     swe_reml = swe_reml,
-     swe_svwls = swe_svwls,
-     p_reml = p_reml,
-     p_svwls = p_svwls
-   )
+    siminitial <- list(
+      ps_reml = ps_reml,
+      ps_svwls = ps_svwls,
+      swe_reml = swe_reml,
+      swe_svwls = swe_svwls,
+      p_reml = p_reml,
+      p_svwls = p_svwls
+    )
     return(siminitial)
   }
 
@@ -330,7 +334,7 @@ fsim <- function(i) {
       p_svwls_predictions = p_svwls_predictions,
       ols_predictions = ols_predictions
     )
-}
+  }
 
   ## create predictions
   predictions <- create_predictions(data_m = data_m, models = models)
@@ -408,7 +412,7 @@ fsim <- function(i) {
     fixed$z <- fixed$est / fixed$se
 
     return(fixed)
-}
+  }
 
   fixed <- get_fixed(models = models)
 
@@ -496,11 +500,31 @@ fsim <- function(i) {
   return(output)
 
 }
+n_sim <- 1000
+cl <- makeCluster(45)
+clusterExport(cl, "fsim")
+clusterEvalQ(cl, fsim)
+test = parLapply(cl, 1:n_sim, fsim)
+stopCluster(cl)
 
-# library(parallel)
-# n_sim <- 2
-# cl <- makeCluster(detectCores())
-# test = parLapply(cl, 1:n_sim, fsim)
-# stopCluster(cl)
+testfixed <- lapply(test, function(x) x$fixed)
+testfixed <- do.call(rbind, testfixed)
+summary(testfixed$se)
+fixed <- testfixed %>%
+  filter(beta != "beta0") %>%
+  group_by(stcov, estmethod, beta) %>%
+  summarize(typeone = mean(abs(z) > 1.96),
+            mse = sqrt(mean((est)^2)),
+            bias = mean(est)) %>%
+  arrange(stcov)
+print(fixed, n = Inf)
+testpreds <- lapply(test, function(x) x$prediction)
+testpreds <- do.call(rbind, testpreds)
+summary(testpreds$se)
 
-
+pred <- testpreds %>%
+  group_by(stcov, estmethod) %>%
+  summarize(coverage = mean(abs(z) <= 1.96),
+            mspe = sqrt(mean((response - est)^2)),
+            bias = mean(response - est))
+pred

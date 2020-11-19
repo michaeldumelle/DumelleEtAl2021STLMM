@@ -1,3 +1,13 @@
+#' Title
+#'
+#' @param data
+#' @param formula
+#' @param ...
+#' @import stats
+#' @return
+#' @export
+#'
+#' @examples
 stlmm <- function(data, formula, ...){
   UseMethod("stlmm", object = data)
 }

@@ -1,3 +1,20 @@
+#' Title
+#'
+#' @param response
+#' @param xcoord
+#' @param ycoord
+#' @param tcoord
+#' @param h_options
+#' @param h_response
+#' @param h_s_large
+#' @param h_t_large
+#' @param stempsv_options
+#' @import stats
+#' @importFrom purrr pmap_dfr
+#' @return
+#' @export
+#'
+#' @examples
 stempsv <- function(response,
                     xcoord,
                     ycoord = NULL,

@@ -1,3 +1,15 @@
+#' Title
+#'
+#' @param data
+#' @param xcoord
+#' @param ycoord
+#' @param tcoord
+#' @param h_options
+#' @import stats
+#' @return
+#' @export
+#'
+#' @examples
 storder <- function(data, xcoord, ycoord = NULL, tcoord, h_options){
 
   # find unique temporal coordinates
@@ -30,7 +42,7 @@ storder <- function(data, xcoord, ycoord = NULL, tcoord, h_options){
     # compute the ordered small spatial distance matrix
     h_s_small <- make_h(
       coord1 = key_s[[xcoord]],
-      dismetric = h_options$h_s_distmetric
+      distmetric = h_options$h_s_distmetric
     )
 
   } else {   # compute the small distance matrix in 1d

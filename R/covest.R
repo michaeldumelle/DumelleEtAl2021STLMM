@@ -1,4 +1,15 @@
-# call the appropriate covariance parameter estimation generic
+#' Title
+#'
+#' @param par
+#' @param covest_object
+#' @param ...
+#'
+#' @import stats
+#'
+#' @return
+#' @export
+#'
+#' @examples
 covest <- function(par, covest_object, ...){
   UseMethod("covest", object = covest_object)
 }

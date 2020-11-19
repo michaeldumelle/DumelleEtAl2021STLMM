@@ -1,3 +1,16 @@
+#' Title
+#'
+#' @param formula
+#' @param xcoord
+#' @param ycoord
+#' @param tcoord
+#' @param data
+#' @param h_options
+#' @import stats
+#' @return
+#' @export
+#'
+#' @examples
 make_data_object <- function(formula, xcoord, ycoord, tcoord, data, h_options) {
 
   # setting a default for h_options

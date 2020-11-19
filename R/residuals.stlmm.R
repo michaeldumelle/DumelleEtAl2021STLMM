@@ -1,3 +1,12 @@
+#' Title
+#'
+#' @param stlmm_object
+#' @param type
+#' @import stats
+#' @return
+#' @export
+#'
+#' @examples
 residuals.stlmm <- function(stlmm_object, type = "raw"){
 
   # calling the function for the raw residuals

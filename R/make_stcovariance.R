@@ -1,3 +1,15 @@
+#' Title
+#'
+#' @param covparam_object
+#' @param h_s_large
+#' @param h_t_large
+#' @param s_cor
+#' @param t_cor
+#' @import stats
+#' @return
+#' @export
+#'
+#' @examples
 make_stcovariance <- function(covparam_object,
                               h_s_large,
                               h_t_large,

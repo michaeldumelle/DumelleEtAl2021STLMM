@@ -1,3 +1,12 @@
+#' Title
+#'
+#' @param covparam_object
+#' @param ...
+#' @import stats
+#' @return
+#' @export
+#'
+#' @examples
 r2plo <- function(covparam_object, ...) {
   # calling the appropriate estimation method / stcov type generic (class/sub)
   UseMethod("r2plo", object = covparam_object)

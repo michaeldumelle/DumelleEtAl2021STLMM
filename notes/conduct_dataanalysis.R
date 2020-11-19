@@ -286,7 +286,7 @@ conduct_dataanalysis <- function() {
 
     prediction <- do.call(rbind, prediction)
 
-    prediction$z <- (prediction$est - prediction$respons) / prediction$se
+    prediction$z <- (prediction$est - prediction$response) / prediction$se
 
     return(prediction)
 
@@ -297,7 +297,8 @@ conduct_dataanalysis <- function() {
   pred <- prediction %>%
     group_by(stcov, estmethod) %>%
     summarize(coverage = mean(abs(z) <= 1.96),
-              mspe = sqrt(mean((response - est)^2)))
+              mspe = sqrt(mean((response - est)^2)),
+              mean_bias = mean(response - est))
 
   output <- list(fixed = fixed, pred = pred)
 }
