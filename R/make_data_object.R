@@ -59,6 +59,7 @@ make_data_object <- function(formula, xcoord, ycoord, tcoord, data, h_options) {
     original_yo = original_yo,
     ordered_data_dense = spint$ordered_data_dense,
     ordered_data_o = spint$ordered_data_o,
+    hdist_seconds = spint$hdist_seconds,
     h_s_small = spint$h_s_small,
     h_t_small = spint$h_t_small,
     n_s = spint$n_s,

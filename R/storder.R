@@ -98,6 +98,8 @@ storder <- function(data, xcoord, ycoord = NULL, tcoord, h_options){
     # compute the large distance matrices in 1d
     if (is.null(ycoord)) {
 
+      # save the times
+      hdist_start <- Sys.time()
       # compute the large spatial distance matrix
       h_s_large <- make_h(
         coord1 = ordered_data_o[[xcoord]],
@@ -109,10 +111,14 @@ storder <- function(data, xcoord, ycoord = NULL, tcoord, h_options){
         coord1 = ordered_data_o[[tcoord]],
         distmetric = h_options$h_t_distmetric
       )
+      hdist_end <- Sys.time()
+      hdist_seconds <- as.numeric(hdist_end - hdist_start, units = "secs")
 
     } else { # compute the large distance matrices in 2d
 
       # compute the large spatial distance matrix
+      # save the times
+      hdist_start <- Sys.time()
       h_s_large <- make_h(
         coord1 = ordered_data_o[[xcoord]],
         coord2 = ordered_data_o[[ycoord]],
@@ -124,6 +130,8 @@ storder <- function(data, xcoord, ycoord = NULL, tcoord, h_options){
         coord1 = ordered_data_o[[tcoord]],
         distmetric = h_options$h_t_distmetric
       )
+      hdist_end <- Sys.time()
+      hdist_seconds <- as.numeric(hdist_end - hdist_start, units = "secs")
 
     }
   } else { # set the large distance matrices equal to NULL if not requested
@@ -141,6 +149,7 @@ storder <- function(data, xcoord, ycoord = NULL, tcoord, h_options){
     n_t = n_t,
     o_index = o_index,
     m_index = m_index,
+    hdist_seconds = hdist_seconds,
     h_s_large = h_s_large,
     h_t_large = h_t_large,
     key_s = key_s,

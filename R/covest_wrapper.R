@@ -16,6 +16,9 @@ covest_wrapper <- function(covest_object, data_object){
 covest_wrapper.svwls <- function(covest_object, data_object){
 
   # performing the optimization
+
+  # timing
+  optim_start <- Sys.time()
   covest_output <- optim(
     par = covest_object$initial_plo,
     fn = covest.svwls,
@@ -24,6 +27,12 @@ covest_wrapper.svwls <- function(covest_object, data_object){
     method = covest_object$optim_options$method,
     control = covest_object$optim_options$control
   )
+  optim_end <- Sys.time()
+  covest_output$optim_seconds <- as.numeric(optim_end - optim_start, units = "secs")
+
+  # set reasonable bounds on what the exponentiated plo parameters can be - this was a frustrating bug to find
+  # covest_output$par[covest_output$par > 7] <- 7
+  # covest_output$par[covest_output$par < -7] <- -7
 
   # transforming the optimized parameter values to regular values
   covest_output$par_r <- plo2r.svwls(par = covest_output$par, covest_object = covest_object)
@@ -69,6 +78,9 @@ covest_wrapper.reml <- function(covest_object, data_object){
   )
 
   # performing the optimization
+
+  # timing
+  optim_start <- Sys.time()
   covest_output <- optim(
     par = initial_plo_noclass,
     fn = covest.reml,
@@ -77,6 +89,9 @@ covest_wrapper.reml <- function(covest_object, data_object){
     method = covest_object$optim_options$method,
     control = covest_object$optim_options$control
   )
+  optim_end <- Sys.time()
+  covest_output$optim_seconds <- as.numeric(optim_end - optim_start, units = "secs")
+
 
   # saving the profiled covariance parameter output
   invert_object$covparams <- plo2r.reml(covest_output$par, covest_object = covest_object, ov_var = 1)

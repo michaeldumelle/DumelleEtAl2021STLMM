@@ -135,15 +135,27 @@ make_covest_object <- function(initial = NULL,
   if (estmethod == "svwls"){
 
     # storing the squared difference of residuals
+    # timing
+    hresp_start <- Sys.time()
     h_response <- make_h(coord1 = lmod_r, distmetric = "euclidean")^2
+    hresp_end <- Sys.time()
+    hresp_seconds <- as.numeric(hresp_end - hresp_start, units = "secs")
 
     # making the empirical semivariogram using the distance matrices
+
+    # timing
+    stempsv_short_start <- Sys.time()
     stempsv <- stempsv(
       h_response = h_response,
       h_s_large = data_object$h_s_large,
       h_t_large = data_object$h_t_large,
       stempsv_options = stempsv_options
     )
+    stempsv_short_end <- Sys.time()
+    stempsv_short_seconds <- as.numeric(stempsv_short_end - stempsv_short_start, units = "secs")
+
+    # computing the final seconds
+    stempsv_seconds <- data_object$hdist_seconds + hresp_seconds + stempsv_short_seconds
 
     # passing through the weights
     weights <- weights
@@ -163,6 +175,7 @@ make_covest_object <- function(initial = NULL,
     chol <- chol
     logdet <- TRUE
     condition <- condition
+    stempsv_seconds <- 0
   }
 
   # making the covest_object and giving it the appropriate class
@@ -177,6 +190,7 @@ make_covest_object <- function(initial = NULL,
          s_cor = s_cor,
          stempsv = stempsv,
          stempsv_options = stempsv_options,
+         stempsv_seconds = stempsv_seconds,
          t_cor = t_cor,
          weights = weights),
     class = class(initial)

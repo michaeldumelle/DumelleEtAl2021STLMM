@@ -93,7 +93,9 @@ stlmm.data.frame <- function(data, formula, xcoord, ycoord = NULL, tcoord, stcov
       Objective = c(
         value = covest_output$value,
         counts = covest_output$count,
-        convergence = covest_output$convergence
+        convergence = covest_output$convergence,
+        stempsv_seconds = covest_object$stempsv_seconds,
+        optim_seconds = covest_output$optim_seconds
       ),
       CovarianceForms = c(
         stcov = stcov,
