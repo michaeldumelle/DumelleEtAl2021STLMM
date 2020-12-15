@@ -12,51 +12,53 @@ n_sim <- 2000
 n <- list(n_s = 35, n_t = 35, n_m = 1)
 cors <- list(s_cor = "exponential", t_cor = "tent")
 beta <- list(beta0 = 0, beta1 = 0, beta2 = 0, beta3 = 0)
-error <- "normal"
+error <- "component_squared"
 
 # this changes simulation to simulation
 set.seed(3) # for simulation 3
 seeds <- as.list(sample.int(.Machine$integer.max, n_sim))
-covparams <- list(s_de = 18, s_ie = 0, t_de = 10, t_ie = 0,
-                  st_de = 0, st_ie = 2, s_range = 0.5 * sqrt(2), t_range = 0.5 * 1)
+covparams <- list(s_de = 4, s_ie = 4, t_de = 4, t_ie = 4,
+                  st_de = 10, st_ie = 4, s_range = 0.5 * sqrt(2), t_range = 0.5 * 1)
 
-# 15, 10, 5 are good - really break fixed
-# 18, 11, 2 -- really break pred
+
 
 cl <- makeCluster(detectCores()) # clusterExport(cl, varlist = c()) exports objects to each cluster
 clusterEvalQ(cl, library(purrr))
-output <-  parLapply(cl, seeds, conduct_simulations, n = n, covparams = covparams, cors = cors, beta = beta, error)
+output <-  parLapply(cl, seeds, conduct_simulations, n = n, covparams = covparams, cors = cors, beta = beta, error = error)
 stopCluster(cl)
 
 
 library(dplyr)
 fixed_full <- lapply(output, function(x) x$fixed) %>%
-  do.call(rbind, .)
+  do.call(rbind, .) %>%
+  mutate(trial = rep(1:n_sim, each = nrow(.) / n_sim))
 
 fixed <- fixed_full %>%
   filter(beta != "beta0") %>%
   group_by(stcov, estmethod, beta) %>%
   summarize(typeone = mean(abs(z) > 1.96),
-            mse = sqrt(mean((est)^2)),
-            bias = mean(est)) %>%
+            rmse = sqrt(mean((est)^2)),
+            mbias = mean(est)) %>%
   arrange(stcov)
 
 print(fixed, n = Inf)
 
 predictions_full <- lapply(output, function(x) x$prediction) %>%
-  do.call(rbind, .)
+  do.call(rbind, .) %>%
+  mutate(trial = rep(1:n_sim, each = nrow(.) / n_sim))
 
 predictions <- predictions_full %>%
   group_by(stcov, estmethod) %>%
   summarize(coverage = mean(abs(z) <= 1.96),
-            mspe = sqrt(mean((response - est)^2)),
-            bias = mean(response - est))
+            rmspe = sqrt(mean((response - est)^2)),
+            mbias = mean(response - est))
 
 print(predictions, n = Inf)
 
 
 covparams_full <- lapply(output, function(x) x$covparams) %>%
-  do.call(rbind, .)
+  do.call(rbind, .) %>%
+  mutate(trial = rep(1:n_sim, each = nrow(.) / n_sim))
 
 covparams <- covparams_full %>%
   group_by(stcov, estmethod, covparam) %>%
@@ -71,7 +73,8 @@ covparams <- covparams_full %>%
 print(covparams, n = Inf)
 
 objectives_full <- lapply(output, function(x) x$objectives) %>%
-  do.call(rbind, .)
+  do.call(rbind, .) %>%
+  mutate(trial = rep(1:n_sim, each = nrow(.) / n_sim))
 
 objectives <- objectives_full %>%
   group_by(stcov, estmethod, quantity) %>%
@@ -82,16 +85,23 @@ print(objectives, n = Inf)
 
 seeds_full <- lapply(output, function(x) x$simseed) %>%
   do.call(rbind, .) %>%
-  as.data.frame()
-colnames(seeds_full) <- "seed"
+  as.data.frame() %>%
+  mutate(trial = rep(1:n_sim, each = nrow(.) / n_sim))
+
+colnames(seeds_full) <- c("seed", "trial")
 
 seeds <- seeds_full
 
 
 if (write) {
-  write.csv(fixed, paste0(path, "simulation3/simulation3_fixed.csv"))
-  write.csv(predictions, paste0(path, "simulation3/simulation3_predictions.csv"))
-  write.csv(objectives, paste0(path, "simulation3/simulation3_objectives.csv"))
-  write.csv(covparams, paste0(path, "simulation3/simulation3_covparams.csv"))
-  write.csv(seeds, paste0(path, "simulation3/simulation3_seeds.csv"))
+  library(readr)
+  write_csv(fixed_full, paste0(path, "simulation3/simulation3_fixed_full.csv"))
+  write_csv(fixed, paste0(path, "simulation3/simulation3_fixed.csv"))
+  write_csv(predictions_full, paste0(path, "simulation3/simulation3_predictions_full.csv"))
+  write_csv(predictions, paste0(path, "simulation3/simulation3_predictions.csv"))
+  write_csv(objectives_full, paste0(path, "simulation3/simulation3_objectives_full.csv"))
+  write_csv(objectives, paste0(path, "simulation3/simulation3_objectives.csv"))
+  write_csv(covparams_full, paste0(path, "simulation3/simulation3_covparams_full.csv"))
+  write_csv(covparams, paste0(path, "simulation3/simulation3_covparams.csv"))
+  write_csv(seeds, paste0(path, "simulation3/simulation3_seeds.csv"))
 }

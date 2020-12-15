@@ -10,7 +10,7 @@
 #' @export
 #'
 #' @examples
-strnorm <- function(object, mu, size, condition, ...) {
+strnorm <- function(object, mu, size, condition, error, ...) {
 
   # dispatching the appropriate generic
   UseMethod("strnorm", object = object)
@@ -54,7 +54,8 @@ strnorm.default <- function(object,
                             t_cor,
                             chol = FALSE,
                             condition = 1e-4,
-                            h_options = NULL
+                            h_options = NULL,
+                            error
                             ) {
   # setting default h options if none are provided
   if (is.null(h_options)){
@@ -159,7 +160,8 @@ strnorm.default <- function(object,
       mu = mu,
       size = size,
       r_s_small = r_s_small,
-      r_t_small = r_t_small
+      r_t_small = r_t_small,
+      error = error
     )
 
     # removing the spatio-temporal observations not provided
@@ -178,14 +180,14 @@ strnorm.default <- function(object,
 
 # the function that actually simulates the random vector in strnorm.deafult
 # and object is a covariance parameter object
-strnorm_small <- function(covparam_object, mu, size, r_s_small, r_t_small) {
+strnorm_small <- function(covparam_object, mu, size, r_s_small, r_t_small, error) {
 
   # calling the appropriate generic
   UseMethod("strnorm_small", object = covparam_object)
 }
 
 
-strnorm_small.productsum <- function(covparam_object, mu, size, r_s_small, r_t_small) {
+strnorm_small.productsum <- function(covparam_object, mu, size, r_s_small, r_t_small, error) {
 
   # computing the lower spatial cholesky
   chol_r_s_small <- t(chol(r_s_small))
@@ -258,8 +260,31 @@ strnorm_small.productsum <- function(covparam_object, mu, size, r_s_small, r_t_s
       st_ie_sim <- rnorm(n_st, sd = sqrt(covparam_object[["st_ie"]]))
 
       # simulating the random error vector
-      randomerror_sim <- s_de_sim + s_ie_sim + t_de_sim + t_ie_sim + st_de_sim + st_ie_sim
-      return(randomerror_sim)
+      if (error == "normal") {
+        randomerror_sim <- s_de_sim + s_ie_sim + t_de_sim + t_ie_sim + st_de_sim + st_ie_sim
+        return(randomerror_sim)
+      } else if (error == "component_squared") {
+        normalerror_sim <- s_de_sim + s_ie_sim + t_de_sim + t_ie_sim + st_de_sim + st_ie_sim
+        var_normalerror_sim <- var(as.vector(normalerror_sim))
+        squarederror_sim <- sign(s_de_sim) * s_de_sim^2 +
+          sign(s_ie_sim) * s_ie_sim^2 +
+          sign(t_de_sim) * t_de_sim^2 +
+          sign(t_ie_sim) * t_ie_sim^2 +
+          sign(st_de_sim) * st_de_sim^2 +
+          sign(st_ie_sim) * st_ie_sim^2
+        var_squarederorr_sim <- var(as.vector(squarederror_sim))
+        randomerror_sim <- squarederror_sim * sqrt(var_normalerror_sim) / sqrt(var_squarederorr_sim)
+        return(randomerror_sim)
+      } else if (error == "sum_squared") {
+        normalerror_sim <- s_de_sim + s_ie_sim + t_de_sim + t_ie_sim + st_de_sim + st_ie_sim
+        var_normalerror_sim <- var(as.vector(normalerror_sim))
+        squarederror_sim <- sign(normalerror_sim) * normalerror_sim^2
+        var_squarederorr_sim <- var(as.vector(squarederror_sim))
+        randomerror_sim <- squarederror_sim * sqrt(var_normalerror_sim) / sqrt(var_squarederorr_sim)
+        return(randomerror_sim)
+      } else {
+        stop("choose a valid error type")
+      }
     },
     double(n_st)
   )

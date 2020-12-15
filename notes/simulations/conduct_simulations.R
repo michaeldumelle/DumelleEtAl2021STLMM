@@ -88,7 +88,22 @@ conduct_simulations <- function(simseed = NULL, n, covparams, cors, beta, error 
     t_cor = t_cor
   )
 
-  data$response <- as.vector(strnorm(stcovariance, data$mu, size = 1))
+  #if (error == "normal") {
+    # data$response <- as.vector(strnorm(stcovariance, data$mu, size = 1))
+  #}
+    data$response <- as.vector(strnorm(
+      object = covparams,
+      mu = data$mu,
+      size = 1,
+      xcoord = "xcoord",
+      ycoord = "ycoord",
+      tcoord = "tcoord",
+      s_cor = s_cor,
+      t_cor = t_cor,
+      error = error,
+      data = data)
+    )
+
 
   # if (error == "transformed") {
   #   data_error <- data$response - data$mu
@@ -106,14 +121,14 @@ conduct_simulations <- function(simseed = NULL, n, covparams, cors, beta, error 
   #   data$response <- data$mu + transformed_error
   # }
 
-  if (error == "transformed") {
-    data_error <- data$response - data$mu
-    s2_error <- var(data_error)
-    t_error <- sign(data_error) * data_error^2
-    s2_t_error <- var(t_error)
-    transformed_error <- t_error * sqrt(s2_error) / sqrt(s2_t_error)
-    data$response <- data$mu + transformed_error
-  }
+  # if (error == "transformed") {
+  #   data_error <- data$response - data$mu
+  #   s2_error <- var(data_error)
+  #   t_error <- sign(data_error) * data_error^2
+  #   s2_t_error <- var(t_error)
+  #   transformed_error <- t_error * sqrt(s2_error) / sqrt(s2_t_error)
+  #   data$response <- data$mu + transformed_error
+  # }
 
 
 

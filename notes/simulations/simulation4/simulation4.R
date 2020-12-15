@@ -1,4 +1,4 @@
-# simulation 5
+# simulation 4
 
 write <- TRUE # set equal to TRUE if you want to write
 
@@ -12,13 +12,13 @@ n_sim <- 2000
 n <- list(n_s = 35, n_t = 35, n_m = 1)
 cors <- list(s_cor = "exponential", t_cor = "tent")
 beta <- list(beta0 = 0, beta1 = 0, beta2 = 0, beta3 = 0)
-error <- "sum_squared"
+error <- "component_squared"
 
 # this changes simulation to simulation
-set.seed(5) # for simulation 5
+set.seed(4) # for simulation 4
 seeds <- as.list(sample.int(.Machine$integer.max, n_sim))
-covparams <- list(s_de = 4, s_ie = 4, t_de = 4, t_ie = 4,
-                  st_de = 10, st_ie = 4, s_range = 0.5 * sqrt(2), t_range = 0.5 * 1)
+covparams <- list(s_de = 18, s_ie = 0, t_de = 10, t_ie = 0,
+                  st_de = 0, st_ie = 2, s_range = 0.5 * sqrt(2), t_range = 0.5 * 1)
 
 
 
@@ -92,16 +92,15 @@ colnames(seeds_full) <- c("seed", "trial")
 
 seeds <- seeds_full
 
-
 if (write) {
   library(readr)
-  write_csv(fixed_full, paste0(path, "simulation5/simulation5_fixed_full.csv"))
-  write_csv(fixed, paste0(path, "simulation5/simulation5_fixed.csv"))
-  write_csv(predictions_full, paste0(path, "simulation5/simulation5_predictions_full.csv"))
-  write_csv(predictions, paste0(path, "simulation5/simulation5_predictions.csv"))
-  write_csv(objectives_full, paste0(path, "simulation5/simulation5_objectives_full.csv"))
-  write_csv(objectives, paste0(path, "simulation5/simulation5_objectives.csv"))
-  write_csv(covparams_full, paste0(path, "simulation5/simulation5_covparams_full.csv"))
-  write_csv(covparams, paste0(path, "simulation5/simulation5_covparams.csv"))
-  write_csv(seeds, paste0(path, "simulation5/simulation5_seeds.csv"))
+  write_csv(fixed_full, paste0(path, "simulation4/simulation4_fixed_full.csv"))
+  write_csv(fixed, paste0(path, "simulation4/simulation4_fixed.csv"))
+  write_csv(predictions_full, paste0(path, "simulation4/simulation4_predictions_full.csv"))
+  write_csv(predictions, paste0(path, "simulation4/simulation4_predictions.csv"))
+  write_csv(objectives_full, paste0(path, "simulation4/simulation4_objectives_full.csv"))
+  write_csv(objectives, paste0(path, "simulation4/simulation4_objectives.csv"))
+  write_csv(covparams_full, paste0(path, "simulation4/simulation4_covparams_full.csv"))
+  write_csv(covparams, paste0(path, "simulation4/simulation4_covparams.csv"))
+  write_csv(seeds, paste0(path, "simulation4/simulation4_seeds.csv"))
 }
