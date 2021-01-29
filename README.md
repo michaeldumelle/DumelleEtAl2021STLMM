@@ -7,7 +7,6 @@
 ## DumelleEtAl2021STLMM
 
 ### An Supplementary R Package to to "A Linear Mixed Model Formulation for Spatio-Temporal Random Processes with Computational Advances for the Product, Sum, and Product-Sum Covariance Families"
-Thank you for taking the time to visit this repository, and I hope you enjoy the work. The repository contains code, data, and a preprint for the manuscript submission "A Linear Mixed Model Formulation for Spatio-Temporal Random Processes with Computational Advances for the Separable and Product-Sum Covariances" by Michael Dumelle, Jay M. Ver Hoef, Claudio Fuentes, and Alix Gitelman.
 
 ##### Michael Dumelle<sup>1</sup>, Jay M. Ver Hoef<sup>2</sup>, Claudio Fuentes<sup>1</sup>, Alix Gitelman<sup>2</sup>
 
