@@ -4,7 +4,7 @@
 \alias{strnorm}
 \title{Title}
 \usage{
-strnorm(object, mu, size, condition, ...)
+strnorm(object, mu, size, condition, error, ...)
 }
 \value{
 

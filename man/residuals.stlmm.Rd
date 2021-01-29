@@ -4,7 +4,7 @@
 \alias{residuals.stlmm}
 \title{Title}
 \usage{
-\method{residuals}{stlmm}(stlmm_object, type = "raw")
+\method{residuals}{stlmm}(object, type = "raw", ...)
 }
 \value{
 

@@ -1,5 +1,5 @@
 Package: DumelleEtAl2021STLMM
-Title: What the Package Does (One Line, Title Case)
+Title: Fit Spatio-Temporal Linear Mixed Models
 Version: 0.0.0.9000
 Authors@R: 
     person(given = "Michael",
@@ -7,7 +7,11 @@ Authors@R:
            role = c("aut", "cre"),
            email = "Dumelle.Michael@epa.gov",
            comment = c(ORCID = "0000-0002-3393-5529"))
-Description: It is frustrating.
+Description: This package is a supplement to "A Linear Mixed Model Formulation
+    for Spatio-Temporal Random Processes with Computational Advances for the
+    Product, Sum, and Product-Sum Covariance Families" by Michael Dumelle,
+    Jay M. Ver Hoef, Claudio Fuentes, and Alix Gitelman. Much of the code is used
+    in an upcoming r package, `stmodel`.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

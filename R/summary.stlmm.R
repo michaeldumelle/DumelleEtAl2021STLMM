@@ -6,7 +6,7 @@
 #' @export
 #'
 #' @examples
-summary.stlmm <- function(object) {
+summary.stlmm <- function(object, ...) {
 
   # store the formula
   call <- object$formula

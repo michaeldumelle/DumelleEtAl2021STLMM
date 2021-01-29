@@ -4,7 +4,7 @@
 \alias{summary.stlmm}
 \title{Title}
 \usage{
-\method{summary}{stlmm}(object)
+\method{summary}{stlmm}(object, ...)
 }
 \value{
 
