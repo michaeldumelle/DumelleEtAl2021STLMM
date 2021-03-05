@@ -2,13 +2,38 @@
 % Please edit documentation in R/make_data_object.R
 \name{make_data_object}
 \alias{make_data_object}
-\title{Title}
+\title{Make the Data Object}
 \usage{
 make_data_object(formula, xcoord, ycoord, tcoord, data, h_options)
 }
-\value{
+\arguments{
+\item{formula}{A formula of the form \code{y ~ x}, where \code{y} is the response variable
+and \code{x} are the predictor variables.}
 
+\item{xcoord}{A character vector specifying the column name of the x-coordinate
+variable in \code{data}.}
+
+\item{ycoord}{A character vector specifying the column name of the y-coordinate
+variable in \code{data}.}
+
+\item{tcoord}{A character vector specifying the column name of the t-coordinate (time)
+variable in \code{data}.}
+
+\item{data}{A data object containing all necessary variables.}
+
+\item{h_options}{A list containing options to compute distances if
+\code{response}, \code{xcoord}, \code{ycoord}, and \code{tcoord} are
+provided. Named arguments are
+\describe{
+\item{\code{h_t_distmetric}}{The temporal distance matrix (defaults to
+\code{"euclidean"}).}
+\item{\code{h_s_distmetric}}{The spatial distance matrix (defaults to
+\code{"euclidean"}).}
+}}
+}
+\value{
+A list with relevant data ordering information.
 }
 \description{
-Title
+Make the Data Object
 }

@@ -1,15 +1,10 @@
-#' Title
+#' Make a Semivariogram Matrix
 #'
-#' @param covparam_object
-#' @param h_s_large
-#' @param h_t_large
-#' @param s_cor
-#' @param t_cor
-#' @import stats
-#' @return
+#' @inheritParams make_stcovariance
+#'
+#' @return A semivariogram matrix
+#'
 #' @export
-#'
-#' @examples
 make_stsemivariogram <- function(covparam_object,
                                  h_s_large,
                                  h_t_large,
@@ -21,7 +16,12 @@ make_stsemivariogram <- function(covparam_object,
   UseMethod("make_stsemivariogram", object = covparam_object)
 }
 
-# make the productsum semivariogram
+#' @name make_stsemivariogram
+#'
+#' @method make_stsemivariogram productsum
+#'
+#' @export make_stsemivariogram.productsum
+#' @export
 make_stsemivariogram.productsum <- function(covparam_object,
                                             h_s_large,
                                             h_t_large,
@@ -29,6 +29,7 @@ make_stsemivariogram.productsum <- function(covparam_object,
                                             t_cor
                                             ) {
 
+  # make the productsum semivariogram
   # taking the variance parameters from the covparam_object
   variances <- c(covparam_object[c("s_de", "s_ie", "t_de", "t_ie", "st_de", "st_ie")])
 
@@ -46,7 +47,12 @@ make_stsemivariogram.productsum <- function(covparam_object,
   return(gamma)
 }
 
-# make the sum with error semivariogram
+#' @name make_stsemivariogram
+#'
+#' @method make_stsemivariogram sum_with_error
+#'
+#' @export make_stsemivariogram.sum_with_error
+#' @export
 make_stsemivariogram.sum_with_error <- function(covparam_object,
                                                 h_s_large,
                                                 h_t_large,
@@ -70,7 +76,12 @@ make_stsemivariogram.sum_with_error <- function(covparam_object,
   return(gamma)
 }
 
-# making the product semivariogram
+#' @name make_stsemivariogram
+#'
+#' @method make_stsemivariogram product
+#'
+#' @export make_stsemivariogram.product
+#' @export
 make_stsemivariogram.product <- function(covparam_object, h_s_large, h_t_large,
                                              s_cor, t_cor){
 

@@ -2,7 +2,7 @@
 % Please edit documentation in R/stempsv.R
 \name{stempsv}
 \alias{stempsv}
-\title{Title}
+\title{Compute the Empirical Spatio-Temporal Semivariogram}
 \usage{
 stempsv(
   response,
@@ -16,9 +16,61 @@ stempsv(
   stempsv_options = NULL
 )
 }
-\value{
+\arguments{
+\item{response}{A vector of response variables (not required if
+\code{h_response} is provided).}
 
+\item{xcoord}{A vector of x-coordinates (not required if
+\code{h_s_large} is provided).}
+
+\item{ycoord}{A vector of y-coordinates (not required if
+\code{h_s_large} is provided).}
+
+\item{tcoord}{A vector of t-coordinates (not required if
+\code{h_t_large} is provided).}
+
+\item{h_options}{A list containing options to compute distances if
+\code{response}, \code{xcoord}, \code{ycoord}, and \code{tcoord} are
+provided. Named arguments are
+\describe{
+\item{\code{h_t_distmetric}}{The temporal distance matrix (defaults to
+\code{"euclidean"}).}.
+\item{\code{h_s_distmetric}}{The spatial distance matrix (defaults to
+\code{"euclidean"}).}
+}}
+
+\item{h_response}{A distance matrix of paired differences of the response
+variable.}
+
+\item{h_s_large}{A distance matrix of paired differences of the spatial
+locations.}
+
+\item{h_t_large}{A distance matrix of paired differences of the temporal
+locations.}
+
+\item{stempsv_options}{A list containing additional options. Named arguments
+are
+\describe{
+\item{\code{n_s_lag}}{The number of spatial distance classes (defaults to 16).}
+\item{\code{n_t_lag}}{The number of temporal distance classes (defaults to 16).}
+\item{\code{h_s_max}}{The maximum spatial distance. Deafaults to half the
+maximum distance in the spatial domain.}
+\item{\code{h_t_max}}{The maximum temporal distance. Deafaults to half the
+maximum distance in the temporal domain.}
+}}
+}
+\value{
+A data frame whose columns are
+\describe{
+\item{\code{gammahat}}{The estimated empirical semivariogram value for
+for the spatio-temporal distance class.}
+\item{\code{n}}{The number of pairs for the spatio-temporal distance class}
+\item{\code{h_s_avg}}{The average spatial distance in the spatio-temporal
+distance class.}
+\item{\code{h_t_avg}}{The average temporal distance in the spatio-temporal
+distance class.}
+}
 }
 \description{
-Title
+Compute the Empirical Spatio-Temporal Semivariogram
 }

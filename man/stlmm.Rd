@@ -2,13 +2,155 @@
 % Please edit documentation in R/stlmm.R
 \name{stlmm}
 \alias{stlmm}
-\title{Title}
+\alias{stlmm.data.frame}
+\title{Fit a Spatio-Temporal Linear Mixed Model}
 \usage{
 stlmm(data, formula, ...)
+
+\method{stlmm}{data.frame}(
+  data,
+  formula,
+  xcoord,
+  ycoord = NULL,
+  tcoord,
+  stcov,
+  estmethod = "reml",
+  s_cor = "exponential",
+  t_cor = "exponential",
+  chol = FALSE,
+  condition = 0.0001,
+  logdet = FALSE,
+  weights = "cressie",
+  initial = NULL,
+  optim_options = NULL,
+  h_options = NULL,
+  max_options = NULL,
+  stempsv_options = NULL,
+  ...
+)
+}
+\arguments{
+\item{data}{A data object containing all necessary variables.}
+
+\item{formula}{A formula of the form \code{y ~ x}, where \code{y} is the response variable
+and \code{x} are the predictor variables.}
+
+\item{...}{Additonal arguments.}
+
+\item{xcoord}{A character vector specifying the column name of the x-coordinate
+variable in \code{data}.}
+
+\item{ycoord}{A character vector specifying the column name of the y-coordinate
+variable in \code{data}.}
+
+\item{tcoord}{A character vector specifying the column name of the t-coordinate (time)
+variable in \code{data}.}
+
+\item{stcov}{The spatio-temporal covariance type
+\describe{
+\item{\code{product}}{The product LMM}
+\item{\code{sum_with_error}}{The sum-with-error LMM}
+\item{\code{productsum}}{The product sum LMM}
+}}
+
+\item{estmethod}{The estimation method
+\describe{
+\item{\code{reml}}{Restricted Maximum Likelihood}
+\item{\code{svwls}}{Semivariogram Weighted Least Squares}
+}}
+
+\item{s_cor}{The spatial correlation
+\describe{
+\item{\code{exponential}}{The exponential correlation (the default).}
+\item{\code{spherical}}{The spherical correlation.}
+\item{\code{gaussian}}{The Gaussian correlation.}
+}}
+
+\item{t_cor}{The temporal correlation
+\describe{
+\item{\code{exponential}}{The exponential correlation (the default).}
+\item{\code{spherical}}{The spherical correlation.}
+\item{\code{gaussian}}{The Gaussian correlation.}
+\item{\code{tent}}{The tent (linear with sill) correlation.}
+}}
+
+\item{chol}{Should the Cholesky decomposition be used? If \code{FALSE},
+efficient inversion algorithms are implemented. Defaults to \code{FALSE}.}
+
+\item{condition}{A small number added to the diagonals of matrices before
+inverting them to prevent ill-conditioning (defaults to \code{1e-4}).}
+
+\item{logdet}{Should the log determinant be returned? (defaults to \code{FALSE}).}
+
+\item{weights}{Weights when \code{estmethod = "svwls"} (defaults to
+\code{"cressie"}) for the Cressie's weighted least squares weights).}
+
+\item{initial}{Initial values for the parameters. Must be made with
+\code{make_covparam_object()} (defaults to even spread of across variance
+parameters, a total variance matching the sample variance of OLS residuals,
+and ranges equaling half the maximum distance in the domain).}
+
+\item{optim_options}{A list containing additional options to pass to
+\link[stats]{optim}.}
+
+\item{h_options}{A list containing options to compute distances if
+\code{response}, \code{xcoord}, \code{ycoord}, and \code{tcoord} are
+provided. Named arguments are
+\describe{
+\item{\code{h_t_distmetric}}{The temporal distance matrix (defaults to
+\code{"euclidean"}).}
+\item{\code{h_s_distmetric}}{The spatial distance matrix (defaults to
+\code{"euclidean"}).}
+}}
+
+\item{max_options}{A list containing additonal options for placing upper
+bounds on the total variance, spatial range, and temporal range. This can
+be helpful for numerical stability in optimization.
+\describe{
+\item{\code{max_v}}{The maximum total variance (defaults to four times the
+variance of OLS residuals)}
+\item{\code{max_s_range}}{The maximum spatial range variance (defaults to
+four times the maximum observed spatial distance)}
+\item{\code{max_t_range}}{The maximum temporal range variance (defaults to
+four times the maximum observed temporal distance)}
+}}
+
+\item{stempsv_options}{A list containing additional options for the
+empirical spatio-temporal semivariogram. Named arguments are
+\describe{
+\item{\code{n_s_lag}}{The number of spatial distance classes (defaults to 16).}
+\item{\code{n_t_lag}}{The number of temporal distance classes (defaults to 16).}
+\item{\code{h_s_max}}{The maximum spatial distance. Deafaults to half the
+maximum distance in the spatial domain.}
+\item{\code{h_t_max}}{The maximum temporal distance. Deafaults to half the
+maximum distance in the temporal domain.}
+}}
 }
 \value{
-
+A list containing several objects
+\describe{
+\item{\code{CovarianceParameters}}{Estimated covariance parameters.}
+\item{\code{Coefficients}}{Fixed effect estimates.}
+\item{\code{NamesCoefficients}}{Names of the fixed effect estimates.}
+\item{\code{CovCoefficients}}{The covariance matrix of the fixed effect estimates.}
+\item{\code{Objective}}{A list containing optimization information.}
+\item{\code{CovarianceForms}}{The spatial, temopral, and spatio-temporal correlation forms.}
+\item{\code{formula}}{The model formula.}
+\item{\code{model}}{A list containing the fixed effect design matrix and response vector.}
+\item{\code{data_object}}{An ordered data object.}
+\item{\code{invert_object}}{An inverse object.}
+\item{\code{coord_names}}{The names of the coordinate vectors.}
+\item{\code{coords}}{The coordinate vectors.}
+\item{\code{h_options}}{Returning the \code{h_options} argument.}
+\item{\code{stempsv_options}}{Returning the \code{stempsv_options} argument.}
+\item{\code{stempsv}}{The empirical spatio-temporal semivariogram (if \code{estmethod = "svwls"})}
+\item{\code{optim_options}}{Returning the \code{stempsv_options} argument.}
+\item{\code{max_options}}{Returning the \code{max_options} argument.}
+\item{\code{chol}}{Returning the \code{chol} argument.}
+\item{\code{condition}}{Returning the \code{condition} argument.}
+\item{\code{residuals}}{Raw residuals.}
+}
 }
 \description{
-Title
+Fit a Spatio-Temporal Linear Mixed Model
 }

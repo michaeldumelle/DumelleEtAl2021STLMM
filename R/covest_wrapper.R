@@ -1,13 +1,3 @@
-#' Title
-#'
-#' @param covest_object
-#' @param data_object
-#' @import stats
-#'
-#' @return
-#' @export
-#'
-#' @examples
 covest_wrapper <- function(covest_object, data_object){
   UseMethod("covest_wrapper", object = covest_object)
 }

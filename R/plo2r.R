@@ -1,13 +1,3 @@
-#' Title
-#'
-#' @param par
-#' @param covest_object
-#' @param ...
-#' @import stats
-#' @return
-#' @export
-#'
-#' @examples
 plo2r <- function(par, covest_object, ...){
   # calling the appropriate estimation method / stcov type generic (class/sub)
   UseMethod("plo2r", object = covest_object)

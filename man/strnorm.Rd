@@ -2,13 +2,101 @@
 % Please edit documentation in R/strnorm.R
 \name{strnorm}
 \alias{strnorm}
-\title{Title}
+\alias{strnorm.matrix}
+\alias{strnorm.default}
+\title{Simulate a Spatio-Temporal Random Variable}
 \usage{
-strnorm(object, mu, size, condition, error, ...)
+strnorm(object, mu, size, condition = 0.0001, error, ...)
+
+\method{strnorm}{matrix}(object, mu, size, condition = 0.0001, error, ...)
+
+\method{strnorm}{default}(
+  object,
+  mu,
+  size,
+  condition = 0.0001,
+  error,
+  xcoord,
+  ycoord = NULL,
+  tcoord,
+  data,
+  s_cor,
+  t_cor,
+  chol = FALSE,
+  h_options = NULL,
+  ...
+)
+}
+\arguments{
+\item{object}{An covariance matrix or a \code{"covparam"} object.}
+
+\item{mu}{A mean vector with length equal to the number of rows in \code{data}
+or a scalar.}
+
+\item{size}{The number of independent simulations}
+
+\item{condition}{A small number added to the diagonals of matrices before
+inverting them to prevent ill-conditioning (defaults to \code{1e-4}).}
+
+\item{error}{The random error type
+\describe{
+\item{\code{normal}}{All random effects are Gaussian and mutually independent.}
+\item{\code{component_squared}}{Gaussian, mutually independent random effects
+are simulated, squared, and rescaled to match the sample variance on the
+Gaussian scale.}
+\item{\code{sum_squared}}{Gaussian, mutually independent random effects
+are simulated, summed, squared, and rescaled to match the sample variance on the
+Gaussian scale.}
+}}
+
+\item{...}{Additional arguments.}
+
+\item{xcoord}{A character vector specifying the column name of the x-coordinate
+variable in \code{data}.}
+
+\item{ycoord}{A character vector specifying the column name of the y-coordinate
+variable in \code{data}.}
+
+\item{tcoord}{A character vector specifying the column name of the t-coordinate (time)
+variable in \code{data}.}
+
+\item{data}{A data object containing all necessary variables.}
+
+\item{s_cor}{The spatial correlation
+\describe{
+\item{\code{exponential}}{The exponential correlation (the default).}
+\item{\code{spherical}}{The spherical correlation.}
+\item{\code{gaussian}}{The Gaussian correlation.}
+}}
+
+\item{t_cor}{The temporal correlation
+\describe{
+\item{\code{exponential}}{The exponential correlation (the default).}
+\item{\code{spherical}}{The spherical correlation.}
+\item{\code{gaussian}}{The Gaussian correlation.}
+\item{\code{tent}}{The tent (linear with sill) correlation.}
+}}
+
+\item{chol}{Should the Cholesky decomposition be used? If \code{FALSE},
+efficient inversion algorithms are implemented. Defaults to \code{FALSE}.}
+
+\item{h_options}{A list containing options to compute distances if
+\code{response}, \code{xcoord}, \code{ycoord}, and \code{tcoord} are
+provided. Named arguments are
+\describe{
+\item{\code{h_t_distmetric}}{The temporal distance matrix (defaults to
+\code{"euclidean"}).}
+\item{\code{h_s_distmetric}}{The spatial distance matrix (defaults to
+\code{"euclidean"}).}
+}}
 }
 \value{
-
+A vector of random variables (if \code{size = 1}) or a matrix of
+random variables (if \code{size > 1}) whose columns indicate seprate
+simulations. The row order corresponds to the rows of the covariance
+matrix (if \code{object} is a matrix) or the rows of \code{data} (if
+\code{object} is a \code{covparam} object.
 }
 \description{
-Title
+Simulate a Spatio-Temporal Random Variable
 }

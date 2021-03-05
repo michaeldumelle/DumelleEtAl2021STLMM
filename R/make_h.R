@@ -1,13 +1,12 @@
-#' Title
+#' Create a Distance Matrix
 #'
-#' @param coord1
-#' @param coord2
-#' @param distmetric
-#' @import stats
-#' @return
+#' @param coord1 Coordinate 1.
+#' @param coord2 Coordinate 2.
+#' @param distmetric Distance metric. Defaults to \code{"euclidean"}.
+#'
+#' @return A distance matrix
+#'
 #' @export
-#'
-#' @examples
 make_h <- function(coord1, coord2 = NULL, distmetric = "euclidean") {
 
   # show the available distance metrics

@@ -1,24 +1,86 @@
-#' Title
+#' Simulate a Spatio-Temporal Random Variable
 #'
-#' @param object
-#' @param mu
-#' @param size
-#' @param condition
-#' @param ...
-#' @import stats
-#' @return
+#' @param object An covariance matrix or a \code{"covparam"} object.
+#'
+#' @param mu A mean vector with length equal to the number of rows in \code{data}
+#'   or a scalar.
+#'
+#' @param size The number of independent simulations
+#'
+#' @param condition A small number added to the diagonals of matrices before
+#'   inverting them to prevent ill-conditioning (defaults to \code{1e-4}).
+#'
+#' @param error The random error type
+#' \describe{
+#'   \item{\code{normal}}{All random effects are Gaussian and mutually independent.}
+#'   \item{\code{component_squared}}{Gaussian, mutually independent random effects
+#'     are simulated, squared, and rescaled to match the sample variance on the
+#'     Gaussian scale.}
+#'   \item{\code{sum_squared}}{Gaussian, mutually independent random effects
+#'     are simulated, summed, squared, and rescaled to match the sample variance on the
+#'     Gaussian scale.}
+#' }
+#'
+#' @param xcoord A character vector specifying the column name of the x-coordinate
+#'   variable in \code{data}.
+#'
+#' @param ycoord A character vector specifying the column name of the y-coordinate
+#'   variable in \code{data}.
+#'
+#' @param tcoord A character vector specifying the column name of the t-coordinate (time)
+#'   variable in \code{data}.
+#'
+#' @param data A data object containing all necessary variables.
+#'
+#' @param s_cor The spatial correlation
+#'   \describe{
+#'     \item{\code{exponential}}{The exponential correlation (the default).}
+#'     \item{\code{spherical}}{The spherical correlation.}
+#'     \item{\code{gaussian}}{The Gaussian correlation.}
+#'   }
+#'
+#' @param t_cor The temporal correlation
+#'   \describe{
+#'     \item{\code{exponential}}{The exponential correlation (the default).}
+#'     \item{\code{spherical}}{The spherical correlation.}
+#'     \item{\code{gaussian}}{The Gaussian correlation.}
+#'     \item{\code{tent}}{The tent (linear with sill) correlation.}
+#'   }
+#'
+#' @param chol Should the Cholesky decomposition be used? If \code{FALSE},
+#'   efficient inversion algorithms are implemented. Defaults to \code{FALSE}.
+#'
+#' @param h_options A list containing options to compute distances if
+#'   \code{response}, \code{xcoord}, \code{ycoord}, and \code{tcoord} are
+#'   provided. Named arguments are
+#'   \describe{
+#'     \item{\code{h_t_distmetric}}{The temporal distance matrix (defaults to
+#'     \code{"euclidean"}).}
+#'     \item{\code{h_s_distmetric}}{The spatial distance matrix (defaults to
+#'     \code{"euclidean"}).}
+#'  }
+#'
+#' @param ... Additional arguments.
+#'
+#'
+#' @return A vector of random variables (if \code{size = 1}) or a matrix of
+#'   random variables (if \code{size > 1}) whose columns indicate seprate
+#'   simulations. The row order corresponds to the rows of the covariance
+#'   matrix (if \code{object} is a matrix) or the rows of \code{data} (if
+#'   \code{object} is a \code{covparam} object.
+#'
 #' @export
-#'
-#' @examples
-strnorm <- function(object, mu, size, condition, error, ...) {
+strnorm <- function(object, mu, size, condition = 1e-4, error, ...) {
 
   # dispatching the appropriate generic
   UseMethod("strnorm", object = object)
 }
 
-# simulating a random variable if a covariance matrix is provided
-strnorm.matrix <- function(object, mu, size, condition = 1e-4) {
-
+#' @name strnorm
+#' @method strnorm matrix
+#' @export
+strnorm.matrix <- function(object, mu, size, condition = 1e-4, error, ...) {
+  # simulating a random variable if a covariance matrix is provided
   # record the sample size
   n_st <- nrow(object)
 
@@ -41,11 +103,17 @@ strnorm.matrix <- function(object, mu, size, condition = 1e-4) {
   )
 }
 
-# the deafult simulation method
-# the user does not have to provide a covariance matrix
+
+#' @name strnorm
+#'
+#' @method strnorm default
+#'
+#' @export
 strnorm.default <- function(object,
                             mu,
                             size,
+                            condition = 1e-4,
+                            error,
                             xcoord,
                             ycoord = NULL,
                             tcoord,
@@ -53,10 +121,11 @@ strnorm.default <- function(object,
                             s_cor,
                             t_cor,
                             chol = FALSE,
-                            condition = 1e-4,
                             h_options = NULL,
-                            error
+                            ...
                             ) {
+  # the deafult simulation method
+  # the user does not have to provide a covariance matrix
   # setting default h options if none are provided
   if (is.null(h_options)){
     h_options = list(

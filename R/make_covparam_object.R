@@ -1,22 +1,48 @@
-#' Title
+#' Make a Covariance Parameter Object
 #'
-#' @param s_de
-#' @param s_ie
-#' @param t_de
-#' @param t_ie
-#' @param st_de
-#' @param st_ie
-#' @param v_s
-#' @param v_t
-#' @param s_range
-#' @param t_range
-#' @param estmethod
-#' @param stcov
-#' @import stats
-#' @return
+#' @param s_de The spatial dependent variance (spatial partial sill).
+#'
+#' @param s_ie The spatial independent variance (spatial nugget).
+#'
+#' @param t_de The temporal dependent variance (temporal partial sill).
+#'
+#' @param t_ie The temporal independent variance (temporal nugget).
+#'
+#' @param st_de The spatio-temporal dependent variance (spatio-temporal partial sill).
+#'
+#' @param st_ie The spatio-temporal independent variance (spatio-temporal nugget).
+#'
+#' @param v_s The proportion of spatial dependent variance
+#'   (if \code{estmethod = "product"}).
+#'
+#' @param v_t The proportion of temporal dependent variance
+#'   (if \code{estmethod = "product"}).
+#'
+#' @param s_range The spatial effective range (the spatial distance at which
+#'   the correlation equals 0.05 (for non-compact) or 0 (for compact correlations)
+#'
+#' @param t_range The spatial effective range (the spatial distance at which
+#'   the correlation equals 0.05 (for non-compact) or 0 (for compact correlations)
+#'
+#' @param estmethod The estimation method
+#'  \describe{
+#'    \item{\code{reml}}{Restricted Maximum Likelihood}
+#'    \item{\code{svwls}}{Semivariogram Weighted Least Squares}
+#'  }
+#'
+#' @param stcov The spatio-temporal covariance type
+#'  \describe{
+#'    \item{\code{product}}{The product LMM}
+#'    \item{\code{sum_with_error}}{The sum-with-error LMM}
+#'    \item{\code{productsum}}{The product sum LMM}
+#'  }
+#'
+#' @return A named vector with covariance parameters having class equal to
+#' the \code{estmethod} argument (if provided) and the \code{stcov} argument.
+#'
+#' @seealso [initial()]
+#'
 #' @export
-#'
-#' @examples
 make_covparam_object <- function(s_de,
                                  s_ie,
                                  t_de,

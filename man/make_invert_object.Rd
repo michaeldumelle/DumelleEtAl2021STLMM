@@ -2,7 +2,7 @@
 % Please edit documentation in R/make_invert_object.R
 \name{make_invert_object}
 \alias{make_invert_object}
-\title{Title}
+\title{Make the Inversion Object.}
 \usage{
 make_invert_object(
   covparam_object,
@@ -22,9 +22,53 @@ make_invert_object(
   yo
 )
 }
-\value{
+\arguments{
+\item{covparam_object}{A covariance parameter object from \code{make_covparam_object()}.}
 
+\item{chol}{Should the Cholesky decomposition be used? If \code{FALSE},
+efficient inversion algorithms are implemented. Defaults to \code{FALSE}.}
+
+\item{co}{The covariance at prediction locations (if specified)}
+
+\item{condition}{A small number added to the diagonals of matrices before
+inverting them to prevent ill-conditioning (defaults to \code{1e-4}).}
+
+\item{h_s_large}{A spatial distance matrix of all spatio-temporal observations (if specified)}
+
+\item{h_t_large}{A temporal distance matrix of all spatio-temopral observations (if specified)}
+
+\item{h_s_small}{A spatial distance matrix of all spatial locations (if specified)}
+
+\item{h_t_small}{A temporal distance matrix of all temporal locations (if specified)}
+
+\item{logdet}{Should the log determinant be returned? (defaults to \code{FALSE}).}
+
+\item{m_index}{An index of missing values (from the space time cube).}
+
+\item{o_index}{An index of observed values (from the space time cube).}
+
+\item{s_cor}{The spatial correlation
+\describe{
+\item{\code{exponential}}{The exponential correlation (the default).}
+\item{\code{spherical}}{The spherical correlation.}
+\item{\code{gaussian}}{The Gaussian correlation.}
+}}
+
+\item{t_cor}{The temporal correlation
+\describe{
+\item{\code{exponential}}{The exponential correlation (the default).}
+\item{\code{spherical}}{The spherical correlation.}
+\item{\code{gaussian}}{The Gaussian correlation.}
+\item{\code{tent}}{The tent (linear with sill) correlation.}
+}}
+
+\item{xo}{The fixed effects design matrix.}
+
+\item{yo}{A response vector.}
+}
+\value{
+A list of relevant inversion information.
 }
 \description{
-Title
+Make the Inversion Object.
 }

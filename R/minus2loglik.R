@@ -1,12 +1,3 @@
-#' Title
-#'
-#' @param invert_object
-#' @param invert_output
-#' @import stats
-#' @return
-#' @export
-#'
-#' @examples
 minus2loglik <- function(invert_object, invert_output) {
 
   # appropriate generic for likelihood based estimation

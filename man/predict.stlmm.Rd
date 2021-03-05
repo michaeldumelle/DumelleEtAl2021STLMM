@@ -2,7 +2,7 @@
 % Please edit documentation in R/predict.R
 \name{predict.stlmm}
 \alias{predict.stlmm}
-\title{Title}
+\title{Predict}
 \usage{
 \method{predict}{stlmm}(
   object,
@@ -13,9 +13,30 @@
   ...
 )
 }
-\value{
+\arguments{
+\item{object}{A model object of class \code{stlmm}.}
 
+\item{newdata}{A data frame containing columns whose names match the names
+of the x-coordinate, y-coordinate, t-coordinate, and predictor variables
+in \code{object}.}
+
+\item{interval}{The interval type. \code{"none"} implies point estimates,
+\code{"confidence"} implies point estimates whose standard errors are related
+to the mean. \code{"predction"} implies point estimates whose standard errors
+are related to a prediction.}
+
+\item{se.fit}{Should the standard error of the point estimate be returned?
+Defaults to \code{TRUE}.}
+
+\item{predcov}{Should the appropriate full covariance matrix of predictions
+be returned? Deafults to \code{FALSE}.}
+
+\item{...}{Additional arguments}
+}
+\value{
+A list containing the point estimates, standard errors (if requested), and
+prediction covariance matrix (if requested).
 }
 \description{
-Title
+Compute best linear unbiased predictions (Kriging).
 }

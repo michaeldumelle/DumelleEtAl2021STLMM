@@ -1,15 +1,3 @@
-#' Title
-#'
-#' @param data
-#' @param xcoord
-#' @param ycoord
-#' @param tcoord
-#' @param h_options
-#' @import stats
-#' @return
-#' @export
-#'
-#' @examples
 storder <- function(data, xcoord, ycoord = NULL, tcoord, h_options){
 
   # find unique temporal coordinates

@@ -2,13 +2,20 @@
 % Please edit documentation in R/make_h.R
 \name{make_h}
 \alias{make_h}
-\title{Title}
+\title{Create a Distance Matrix}
 \usage{
 make_h(coord1, coord2 = NULL, distmetric = "euclidean")
 }
-\value{
+\arguments{
+\item{coord1}{Coordinate 1.}
 
+\item{coord2}{Coordinate 2.}
+
+\item{distmetric}{Distance metric. Defaults to \code{"euclidean"}.}
+}
+\value{
+A distance matrix
 }
 \description{
-Title
+Create a Distance Matrix
 }

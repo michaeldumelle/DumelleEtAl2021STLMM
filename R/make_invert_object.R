@@ -1,25 +1,51 @@
-#' Title
+#' Make the Inversion Object.
 #'
-#' @param covparam_object
-#' @param chol
-#' @param co
-#' @param condition
-#' @param h_s_large
-#' @param h_t_large
-#' @param h_s_small
-#' @param h_t_small
-#' @param logdet
-#' @param m_index
-#' @param o_index
-#' @param s_cor
-#' @param t_cor
-#' @param xo
-#' @param yo
-#' @import stats
-#' @return
+#' @param covparam_object A covariance parameter object from \code{make_covparam_object()}.
+#'
+#' @param chol Should the Cholesky decomposition be used? If \code{FALSE},
+#'   efficient inversion algorithms are implemented. Defaults to \code{FALSE}.
+#'
+#' @param co The covariance at prediction locations (if specified)
+#'
+#' @param condition A small number added to the diagonals of matrices before
+#'   inverting them to prevent ill-conditioning (defaults to \code{1e-4}).
+#'
+#' @param h_s_large A spatial distance matrix of all spatio-temporal observations (if specified)
+#'
+#' @param h_t_large A temporal distance matrix of all spatio-temopral observations (if specified)
+#'
+#' @param h_s_small A spatial distance matrix of all spatial locations (if specified)
+#'
+#' @param h_t_small A temporal distance matrix of all temporal locations (if specified)
+#'
+#' @param logdet Should the log determinant be returned? (defaults to \code{FALSE}).
+#'
+#' @param m_index An index of missing values (from the space time cube).
+#'
+#' @param o_index An index of observed values (from the space time cube).
+#'
+#' @param s_cor The spatial correlation
+#'   \describe{
+#'     \item{\code{exponential}}{The exponential correlation (the default).}
+#'     \item{\code{spherical}}{The spherical correlation.}
+#'     \item{\code{gaussian}}{The Gaussian correlation.}
+#'   }
+#'
+#' @param t_cor The temporal correlation
+#'   \describe{
+#'     \item{\code{exponential}}{The exponential correlation (the default).}
+#'     \item{\code{spherical}}{The spherical correlation.}
+#'     \item{\code{gaussian}}{The Gaussian correlation.}
+#'     \item{\code{tent}}{The tent (linear with sill) correlation.}
+#'   }
+#'
+#' @param xo The fixed effects design matrix.
+#'
+#' @param yo A response vector.
+#'
+#' @return A list of relevant inversion information.
+#'
 #' @export
-#'
-#' @examples
 make_invert_object <- function(covparam_object,
                                chol,
                                co = NULL,

@@ -1,19 +1,22 @@
-#' Title
+#' Covariance Matrix Inversion
 #'
-#' @param invert_object
-#' @import stats
+#' @param invert_object An inversion object made from \code{make_invert_object}.
 #'
-#' @return
+#' @return Relevant covariance matrix inversion information.
+#'
 #' @export
-#'
-#' @examples
 invert <- function(invert_object) {
   UseMethod("invert", object = invert_object)
 }
 
-# invert a product sum covariance matrix
+#' @name invert
+#'
+#' @method invert productsum
+#'
+#' @export invert.productsum
+#' @export
 invert.productsum <- function(invert_object) {
-
+  # invert a product sum covariance matrix
   # invert using a the standard cholesky decomposition approach
   if (invert_object$chol) {
 
@@ -177,6 +180,12 @@ invert.productsum <- function(invert_object) {
   return(output_non_null)
 }
 
+#' @name invert
+#'
+#' @method invert sum_with_error
+#'
+#' @export invert.sum_with_error
+#' @export
 invert.sum_with_error <- function(invert_object) {
 
   if (invert_object$chol) {
@@ -296,7 +305,12 @@ invert.sum_with_error <- function(invert_object) {
 
 
 
-
+#' @name invert
+#'
+#' @method invert product
+#'
+#' @export invert.product
+#' @export
 invert.product <- function(invert_object) {
 
   if (invert_object$chol) {

@@ -1,3 +1,30 @@
+#' Transverse Mercator Projection
+#'
+#' Project latitude and longitude spatial coordinates using a Transverse Mercator
+#' projection. Units are in kilometers, the minimum projected coordinates in
+#' the x and y direction are 0, and projected coordinates are scaled to 1 kilometer.
+#'
+#' @param cm iCentral meridian. A common choice is the
+#' mean of the longitude values in your data set
+#'
+#' @param lat Vector of latitudes.
+#'
+#' @param lon Vector of longitudes.
+#'
+#' @param xcol Name of the transformed x coordinates output by the function.
+#'
+#' @param ycol Name of the transformed y coordinates output by the function.
+#'
+#' @param minx A minimum x coordinate to center by. Defaults to setting the minimum
+#'   transformed coordinate to 0.
+#'
+#' @param miny A minimum y coordinate to center by. Defaults to setting the minimum
+#'   transformed coordinate to 0.
+#'
+#' @return A list returning the transformed coordinates, central meridian argument,
+#'   minimum x coordinate, and minimum y coordinate.
+#'
+#' @export
 LLtoUTM <- function(cm, lat, lon, xcol = "x", ycol = "y", minx = NULL, miny = NULL)
 {
   # check if any longitude values straddle the -180, +180 longitude line

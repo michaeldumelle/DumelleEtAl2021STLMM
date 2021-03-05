@@ -1,16 +1,32 @@
-#' Title
+#' Make the Data Object
 #'
-#' @param formula
-#' @param xcoord
-#' @param ycoord
-#' @param tcoord
-#' @param data
-#' @param h_options
-#' @import stats
-#' @return
+#' @param formula A formula of the form \code{y ~ x}, where \code{y} is the response variable
+#'   and \code{x} are the predictor variables.
+#'
+#' @param xcoord A character vector specifying the column name of the x-coordinate
+#'   variable in \code{data}.
+#'
+#' @param ycoord A character vector specifying the column name of the y-coordinate
+#'   variable in \code{data}.
+#'
+#' @param tcoord A character vector specifying the column name of the t-coordinate (time)
+#'   variable in \code{data}.
+#'
+#' @param data A data object containing all necessary variables.
+#'
+#' @param h_options A list containing options to compute distances if
+#'   \code{response}, \code{xcoord}, \code{ycoord}, and \code{tcoord} are
+#'   provided. Named arguments are
+#'   \describe{
+#'     \item{\code{h_t_distmetric}}{The temporal distance matrix (defaults to
+#'     \code{"euclidean"}).}
+#'     \item{\code{h_s_distmetric}}{The spatial distance matrix (defaults to
+#'     \code{"euclidean"}).}
+#'  }
+#'
+#' @return A list with relevant data ordering information.
+#'
 #' @export
-#'
-#' @examples
 make_data_object <- function(formula, xcoord, ycoord, tcoord, data, h_options) {
 
   # setting a default for h_options

@@ -1,23 +1,14 @@
-#' Title
+#' Create Initial Values
 #'
-#' @param s_de
-#' @param s_ie
-#' @param t_de
-#' @param t_ie
-#' @param st_de
-#' @param st_ie
-#' @param v_s
-#' @param v_t
-#' @param s_range
-#' @param t_range
-#' @param estmethod
-#' @param stcov
-#' @import stats
+#' A wrapper around \code{make_covparam_object} that requires specification
+#' of \code{estmethod}.
 #'
-#' @return
+#' @inheritParams make_covparam_object
+#'
+#' @return A named vector with covariance parameters having class equal to
+#' the \code{estmethod} argument and the \code{stcov} argument.
+#'
 #' @export
-#'
-#' @examples
 initial <- function(s_de,
                     s_ie,
                     t_de,

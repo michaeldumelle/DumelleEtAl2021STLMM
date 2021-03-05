@@ -2,13 +2,25 @@
 % Please edit documentation in R/invert.R
 \name{invert}
 \alias{invert}
-\title{Title}
+\alias{invert.productsum}
+\alias{invert.sum_with_error}
+\alias{invert.product}
+\title{Covariance Matrix Inversion}
 \usage{
 invert(invert_object)
+
+\method{invert}{productsum}(invert_object)
+
+\method{invert}{sum_with_error}(invert_object)
+
+\method{invert}{product}(invert_object)
+}
+\arguments{
+\item{invert_object}{An inversion object made from \code{make_invert_object}.}
 }
 \value{
-
+Relevant covariance matrix inversion information.
 }
 \description{
-Title
+Covariance Matrix Inversion
 }

@@ -2,13 +2,44 @@
 % Please edit documentation in R/make_stsemivariogram.R
 \name{make_stsemivariogram}
 \alias{make_stsemivariogram}
-\title{Title}
+\alias{make_stsemivariogram.productsum}
+\alias{make_stsemivariogram.sum_with_error}
+\alias{make_stsemivariogram.product}
+\title{Make a Semivariogram Matrix}
 \usage{
 make_stsemivariogram(covparam_object, h_s_large, h_t_large, s_cor, t_cor)
+
+\method{make_stsemivariogram}{productsum}(covparam_object, h_s_large, h_t_large, s_cor, t_cor)
+
+\method{make_stsemivariogram}{sum_with_error}(covparam_object, h_s_large, h_t_large, s_cor, t_cor)
+
+\method{make_stsemivariogram}{product}(covparam_object, h_s_large, h_t_large, s_cor, t_cor)
+}
+\arguments{
+\item{covparam_object}{A covparam object}
+
+\item{h_s_large}{A spatial distance matrix of all spatio-temporal observations (if specified)}
+
+\item{h_t_large}{A temporal distance matrix of all spatio-temopral observations (if specified)}
+
+\item{s_cor}{The spatial correlation
+\describe{
+\item{\code{exponential}}{The exponential correlation (the default).}
+\item{\code{spherical}}{The spherical correlation.}
+\item{\code{gaussian}}{The Gaussian correlation.}
+}}
+
+\item{t_cor}{The temporal correlation
+\describe{
+\item{\code{exponential}}{The exponential correlation (the default).}
+\item{\code{spherical}}{The spherical correlation.}
+\item{\code{gaussian}}{The Gaussian correlation.}
+\item{\code{tent}}{The tent (linear with sill) correlation.}
+}}
 }
 \value{
-
+A semivariogram matrix
 }
 \description{
-Title
+Make a Semivariogram Matrix
 }
