@@ -55,15 +55,14 @@
 #'
 #' @export
 stempsv <- function(response,
-                         xcoord,
-                         ycoord = NULL,
-                         tcoord,
-                         h_options = NULL,
-                         h_response = NULL,
-                         h_s_large = NULL,
-                         h_t_large = NULL,
-                         stempsv_options = NULL
-) {
+                    xcoord,
+                    ycoord = NULL,
+                    tcoord,
+                    h_options = NULL,
+                    h_response = NULL,
+                    h_s_large = NULL,
+                    h_t_large = NULL,
+                    stempsv_options = NULL) {
 
   # setting default options if none are given
   if (is.null(stempsv_options)) {
@@ -72,7 +71,7 @@ stempsv <- function(response,
 
   # setting default h options if none are given
   if (is.null(h_options)) {
-    h_options = list(h_t_distmetric = "euclidean", h_s_distmetric = "euclidean")
+    h_options <- list(h_t_distmetric = "euclidean", h_s_distmetric = "euclidean")
   }
 
   # creating a large spatial distance matrix if not provided
@@ -81,7 +80,7 @@ stempsv <- function(response,
   }
 
   # creating a large temporal distance matrix if not provided
-  if (is.null(h_t_large)){
+  if (is.null(h_t_large)) {
     h_t_large <- make_h(coord1 = tcoord, distmetric = h_options$h_t_distmetric)
   }
 

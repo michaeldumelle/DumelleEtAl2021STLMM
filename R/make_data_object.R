@@ -31,9 +31,11 @@ make_data_object <- function(formula, xcoord, ycoord, tcoord, data, h_options) {
 
   # setting a default for h_options
   if (is.null(h_options)) {
-    h_options = list(h_large = TRUE,
-                     h_t_distmetric = "euclidean",
-                     h_s_distmetric = "euclidean")
+    h_options <- list(
+      h_large = TRUE,
+      h_t_distmetric = "euclidean",
+      h_s_distmetric = "euclidean"
+    )
   }
 
   # restoring the original data
@@ -59,7 +61,8 @@ make_data_object <- function(formula, xcoord, ycoord, tcoord, data, h_options) {
 
   # create the model frame using the provided formula
   ordered_stmodel_frame <- model.frame(formula, spint$ordered_data_o,
-                                       na.action = stats::na.omit)
+    na.action = stats::na.omit
+  )
 
   # creating the fixed design matrix
   ordered_xo <- model.matrix(formula, ordered_stmodel_frame)
@@ -89,7 +92,7 @@ make_data_object <- function(formula, xcoord, ycoord, tcoord, data, h_options) {
     ordered_xo = ordered_xo,
     ordered_yo = ordered_yo,
     h_options = h_options
-    )
+  )
 
   # returning the data object
   return(data_object)

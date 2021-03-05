@@ -23,12 +23,10 @@ beta <- list(beta0 = 0, beta1 = 0, beta2 = 0, beta3 = 0)
 
 # Save the conduct simulations function ---------------------------------------
 conduct_simulations <- function(simseed = NULL, n, covparams, cors, beta, error) {
-
-
   if (is.null(simseed)) {
     simseed <- sample.int(.Machine$integer.max, 1)
   }
-  #running the simulations
+  # running the simulations
   set.seed(simseed)
 
   ## sample sizes
@@ -51,7 +49,7 @@ conduct_simulations <- function(simseed = NULL, n, covparams, cors, beta, error)
   ## coordinates
   xcoord <- rep(runif(n_s), times = n_t)
   ycoord <- rep(runif(n_s), times = n_t)
-  #tcoord <- rep(runif(n_t), each = n_s)
+  # tcoord <- rep(runif(n_t), each = n_s)
   tcoord <- rep(seq(0, 1, length.out = n_t), each = n_s)
 
   ## data
@@ -108,9 +106,9 @@ conduct_simulations <- function(simseed = NULL, n, covparams, cors, beta, error)
     t_cor = t_cor
   )
 
-  #if (error == "normal") {
+  # if (error == "normal") {
   # data$response <- as.vector(strnorm(stcovariance, data$mu, size = 1))
-  #}
+  # }
   data$response <- as.vector(strnorm(
     object = covparams,
     mu = data$mu,
@@ -121,8 +119,8 @@ conduct_simulations <- function(simseed = NULL, n, covparams, cors, beta, error)
     s_cor = s_cor,
     t_cor = t_cor,
     error = error,
-    data = data)
-  )
+    data = data
+  ))
 
 
 
@@ -136,7 +134,6 @@ conduct_simulations <- function(simseed = NULL, n, covparams, cors, beta, error)
 
   ## make intial value function
   create_siminitial <- function(s_de, s_ie, t_de, t_ie, st_de, st_ie, s_range, t_range, sd_scaling) {
-
     sd_scaling <- 10
     s_de_initial <- pmax(0.1, s_de + rnorm(1, mean = 0, sd = s_de / sd_scaling))
     s_ie_initial <- pmax(0.1, s_ie + rnorm(1, mean = 0, sd = s_ie / sd_scaling))
@@ -234,26 +231,26 @@ conduct_simulations <- function(simseed = NULL, n, covparams, cors, beta, error)
   }
 
   ## construct initial values
-  siminitial <- create_siminitial(s_de = s_de,
-                                  s_ie = s_ie,
-                                  t_de = t_de,
-                                  t_ie = t_ie,
-                                  st_de = st_de,
-                                  st_ie = st_ie,
-                                  s_range = s_range,
-                                  t_range = t_range,
-                                  sd_scaling = 10)
+  siminitial <- create_siminitial(
+    s_de = s_de,
+    s_ie = s_ie,
+    t_de = t_de,
+    t_ie = t_ie,
+    st_de = st_de,
+    st_ie = st_ie,
+    s_range = s_range,
+    t_range = t_range,
+    sd_scaling = 10
+  )
 
   ## subset the observed data
-  data_o <-  subset(data, observed)
+  data_o <- subset(data, observed)
 
   ## subset the "missing" data
   data_m <- subset(data, !observed)
 
   ## create models function
   create_models <- function(data_o, siminitial) {
-
-
     ps_reml_mod <- stlmm(
       formula = response ~ pred_s + pred_t + pred_st,
       data = data_o,
@@ -381,7 +378,6 @@ conduct_simulations <- function(simseed = NULL, n, covparams, cors, beta, error)
   predictions <- create_predictions(data_m = data_m, models = models)
 
   get_fixed <- function(models) {
-
     fixed_ps_reml <- data.frame(
       stcov = "productsum",
       estmethod = "reml",
@@ -458,7 +454,6 @@ conduct_simulations <- function(simseed = NULL, n, covparams, cors, beta, error)
   fixed <- get_fixed(models = models)
 
   get_prediction <- function(data_m, predictions) {
-
     prediction_ps_reml <- data.frame(
       stcov = "productsum",
       estmethod = "reml",
@@ -531,13 +526,11 @@ conduct_simulations <- function(simseed = NULL, n, covparams, cors, beta, error)
     prediction$z <- (prediction$est - prediction$respons) / prediction$se
 
     return(prediction)
-
   }
 
   prediction <- get_prediction(data_m = data_m, predictions = predictions)
 
   get_covparams <- function(models) {
-
     ps_reml_covparams <- data.frame(
       stcov = "productsum",
       estmethod = "reml",
@@ -592,13 +585,11 @@ conduct_simulations <- function(simseed = NULL, n, covparams, cors, beta, error)
     covparams <- do.call(rbind, covparams)
 
     return(covparams)
-
   }
 
   covparams <- get_covparams(models = models)
 
   get_objectives <- function(models) {
-
     ps_reml_objective <- data.frame(
       stcov = "productsum",
       estmethod = "reml",
@@ -641,13 +632,15 @@ conduct_simulations <- function(simseed = NULL, n, covparams, cors, beta, error)
       result = models$p_svwls_mod$Objective[-3] # this is the counts.gradient output
     )
 
-    #storing the average stempsv time as the exact quantity is computed 3 times
-    stempsv_average <- mean(c(ps_svwls_objective$result[ps_svwls_objective$quantity == "stemp_seconds"],
-                              swe_svwls_objective$result[swe_svwls_objective$quantity == "stemp_seconds"],
-                              p_svwls_objective$result[p_svwls_objective$quantity == "stemp_seconds"]))
-    ps_svwls_objective$result[ps_svwls_objective$quantity == "stemp_seconds"] = stempsv_average
-    swe_svwls_objective$result[swe_svwls_objective$quantity == "stemp_seconds"] = stempsv_average
-    p_svwls_objective$result[p_svwls_objective$quantity == "stemp_seconds"] = stempsv_average
+    # storing the average stempsv time as the exact quantity is computed 3 times
+    stempsv_average <- mean(c(
+      ps_svwls_objective$result[ps_svwls_objective$quantity == "stemp_seconds"],
+      swe_svwls_objective$result[swe_svwls_objective$quantity == "stemp_seconds"],
+      p_svwls_objective$result[p_svwls_objective$quantity == "stemp_seconds"]
+    ))
+    ps_svwls_objective$result[ps_svwls_objective$quantity == "stemp_seconds"] <- stempsv_average
+    swe_svwls_objective$result[swe_svwls_objective$quantity == "stemp_seconds"] <- stempsv_average
+    p_svwls_objective$result[p_svwls_objective$quantity == "stemp_seconds"] <- stempsv_average
 
     objectives <- list(
       ps_reml_objective = ps_reml_objective,
@@ -674,16 +667,17 @@ conduct_simulations <- function(simseed = NULL, n, covparams, cors, beta, error)
   )
 
   return(output)
-
 }
 
 # Run the conduct simulations function for simulation 4 -----------------------
 set.seed(4)
 # generate seeds for reproducibility
 seeds <- as.list(sample.int(.Machine$integer.max, n_sim))
-#set covariance parameter vector
-covparams <- list(s_de = 18, s_ie = 0, t_de = 10, t_ie = 0,
-                  st_de = 0, st_ie = 2, s_range = 0.5 * sqrt(2), t_range = 0.5 * 1)
+# set covariance parameter vector
+covparams <- list(
+  s_de = 18, s_ie = 0, t_de = 10, t_ie = 0,
+  st_de = 0, st_ie = 2, s_range = 0.5 * sqrt(2), t_range = 0.5 * 1
+)
 error <- "component_squared"
 
 # load parallel is using parallelization
@@ -694,7 +688,7 @@ n_clust <- 1
 cl <- makeCluster(n_clust)
 clusterEvalQ(cl, library(DumelleEtAl2021STLMM))
 # run the simulation
-output <-  parLapply(cl, seeds, conduct_simulations, n = n, covparams = covparams, cors = cors, beta = beta, error = error)
+output <- parLapply(cl, seeds, conduct_simulations, n = n, covparams = covparams, cors = cors, beta = beta, error = error)
 # stop the cluster
 stopCluster(cl)
 
@@ -710,9 +704,11 @@ fixed_full <- lapply(output, function(x) x$fixed) %>%
 fixed <- fixed_full %>%
   filter(beta != "beta0") %>%
   group_by(stcov, estmethod, beta) %>%
-  summarize(typeone = mean(abs(z) > 1.96),
-            rmse = sqrt(mean((est)^2)),
-            mbias = mean(est)) %>%
+  summarize(
+    typeone = mean(abs(z) > 1.96),
+    rmse = sqrt(mean((est)^2)),
+    mbias = mean(est)
+  ) %>%
   arrange(stcov)
 
 print(fixed, n = Inf)
@@ -723,9 +719,11 @@ predictions_full <- lapply(output, function(x) x$prediction) %>%
 
 predictions <- predictions_full %>%
   group_by(stcov, estmethod) %>%
-  summarize(coverage = mean(abs(z) <= 1.96),
-            rmspe = sqrt(mean((response - est)^2)),
-            mbias = mean(response - est))
+  summarize(
+    coverage = mean(abs(z) <= 1.96),
+    rmspe = sqrt(mean((response - est)^2)),
+    mbias = mean(response - est)
+  )
 
 print(predictions, n = Inf)
 
@@ -736,12 +734,14 @@ covparams_full <- lapply(output, function(x) x$covparams) %>%
 
 covparams <- covparams_full %>%
   group_by(stcov, estmethod, covparam) %>%
-  summarize(lowq = quantile(value, 0.1),
-            q1 = quantile(value, 0.25),
-            median_result = median(value),
-            mean_result = mean(value),
-            q3 = quantile(value, 0.75),
-            highq = quantile(value, 0.9)) %>%
+  summarize(
+    lowq = quantile(value, 0.1),
+    q1 = quantile(value, 0.25),
+    median_result = median(value),
+    mean_result = mean(value),
+    q3 = quantile(value, 0.75),
+    highq = quantile(value, 0.9)
+  ) %>%
   arrange(covparam, estmethod)
 
 print(covparams, n = Inf)
@@ -773,7 +773,7 @@ if (write) {
   library(readr)
   write_csv(fixed, "inst/output/simulations/simulation4/fixed.csv")
   write_csv(predictions, "inst/output/simulations/simulation4/predictions.csv")
-  write_csv(objectives,  "inst/output/simulations/simulation4/objectives.csv")
+  write_csv(objectives, "inst/output/simulations/simulation4/objectives.csv")
   write_csv(covparams, "inst/output/simulations/simulation4/covparams.csv")
   write_csv(seeds, "inst/output/simulations/simulation4/seeds.csv")
 }

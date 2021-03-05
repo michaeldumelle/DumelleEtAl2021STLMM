@@ -15,10 +15,10 @@ make_covest_object <- function(initial = NULL,
   if (is.null(optim_options)) {
     if (estmethod == "reml") {
       # lower tolerance for REML
-      control = list(reltol = 1e-4, maxit = 2000)
+      control <- list(reltol = 1e-4, maxit = 2000)
     } else {
       # higher tolerance for CWLS
-      control = list(reltol = 1e-8, maxit = 10000)
+      control <- list(reltol = 1e-8, maxit = 10000)
     }
     # Nelder-Mead as a default
     optim_options <- list(method = "Nelder-Mead", control = control)
@@ -30,7 +30,7 @@ make_covest_object <- function(initial = NULL,
   }
 
   if (is.null(stempsv_options)) {
-    if (estmethod == "svwls"){
+    if (estmethod == "svwls") {
       # defaults for the semivariogram options - the NULLS are given to
       # appropriate defaults later
       stempsv_options <- list(n_s_lag = 16, n_t_lag = 16, h_s_max = NULL, h_t_max = NULL)
@@ -112,7 +112,7 @@ make_covest_object <- function(initial = NULL,
   initial_plo <- r2plo(covparam_object = initial, max_options = max_options)
 
   # making the semivariogram if required
-  if (estmethod == "svwls"){
+  if (estmethod == "svwls") {
 
     # storing the squared difference of residuals
     # timing
@@ -160,19 +160,21 @@ make_covest_object <- function(initial = NULL,
 
   # making the covest_object and giving it the appropriate class
   covest_object <- structure(
-    list(chol = chol,
-         condition = condition,
-         initial = initial,
-         initial_plo = initial_plo,
-         logdet = logdet,
-         max_options = max_options,
-         optim_options = optim_options,
-         s_cor = s_cor,
-         stempsv = stempsv,
-         stempsv_options = stempsv_options,
-         stempsv_seconds = stempsv_seconds,
-         t_cor = t_cor,
-         weights = weights),
+    list(
+      chol = chol,
+      condition = condition,
+      initial = initial,
+      initial_plo = initial_plo,
+      logdet = logdet,
+      max_options = max_options,
+      optim_options = optim_options,
+      s_cor = s_cor,
+      stempsv = stempsv,
+      stempsv_options = stempsv_options,
+      stempsv_seconds = stempsv_seconds,
+      t_cor = t_cor,
+      weights = weights
+    ),
     class = class(initial)
   )
 

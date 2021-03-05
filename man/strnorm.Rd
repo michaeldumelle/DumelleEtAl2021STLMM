@@ -6,15 +6,15 @@
 \alias{strnorm.default}
 \title{Simulate a Spatio-Temporal Random Variable}
 \usage{
-strnorm(object, mu, size, condition = 0.0001, error, ...)
+strnorm(object, mu, size, condition = 1e-04, error, ...)
 
-\method{strnorm}{matrix}(object, mu, size, condition = 0.0001, error, ...)
+\method{strnorm}{matrix}(object, mu, size, condition = 1e-04, error, ...)
 
 \method{strnorm}{default}(
   object,
   mu,
   size,
-  condition = 0.0001,
+  condition = 1e-04,
   error,
   xcoord,
   ycoord = NULL,

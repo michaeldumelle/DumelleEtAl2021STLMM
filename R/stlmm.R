@@ -121,7 +121,7 @@
 #'   }
 #'
 #' @export
-stlmm <- function(data, formula, ...){
+stlmm <- function(data, formula, ...) {
   UseMethod("stlmm", object = data)
 }
 
@@ -132,7 +132,7 @@ stlmm.data.frame <- function(data, formula, xcoord, ycoord = NULL, tcoord, stcov
                              estmethod = "reml", s_cor = "exponential", t_cor = "exponential", chol = FALSE, condition = 1e-4,
                              logdet = FALSE, weights = "cressie", initial = NULL,
                              optim_options = NULL, h_options = NULL,
-                             max_options = NULL, stempsv_options = NULL, ...){
+                             max_options = NULL, stempsv_options = NULL, ...) {
 
   # create the data object
   data_object <- make_data_object(
@@ -252,4 +252,3 @@ stlmm.data.frame <- function(data, formula, xcoord, ycoord = NULL, tcoord, stcov
   # return the stlmm_object
   return(stlmm_object)
 }
-

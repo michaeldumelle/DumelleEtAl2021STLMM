@@ -1,9 +1,9 @@
-covest_wrapper <- function(covest_object, data_object){
+covest_wrapper <- function(covest_object, data_object) {
   UseMethod("covest_wrapper", object = covest_object)
 }
 
 # wrapper for the weighted least squarse optimization
-covest_wrapper.svwls <- function(covest_object, data_object){
+covest_wrapper.svwls <- function(covest_object, data_object) {
 
   # performing the optimization
 
@@ -36,11 +36,9 @@ covest_wrapper.svwls <- function(covest_object, data_object){
 
   # returning the covariance parameter output
   return(covest_output)
-
-
 }
 
-covest_wrapper.reml <- function(covest_object, data_object){
+covest_wrapper.reml <- function(covest_object, data_object) {
 
   # newly storing the initial values (profiled log odds)
   initial_plo_noclass <- covest_object$initial_plo
@@ -104,8 +102,4 @@ covest_wrapper.reml <- function(covest_object, data_object){
 
   # returning the covariance parameter output
   return(covest_output)
-
-
 }
-
-

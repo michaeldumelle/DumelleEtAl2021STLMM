@@ -13,7 +13,6 @@ make_newdata_h <- function(newdata_coord1, data_coord1, newdata_coord2 = NULL, d
 
 # compute the euclidean distance
 eucdist_newdata <- function(newdata_coord1, data_coord1, newdata_coord2, data_coord2) {
-
   if (is.null(newdata_coord2) & is.null(data_coord2)) {
 
     # euclidean distance if 1d
@@ -25,7 +24,7 @@ eucdist_newdata <- function(newdata_coord1, data_coord1, newdata_coord2, data_co
 
     # euclidean distance if 2d
     eucdist_2d <- sqrt(outer(newdata_coord1, data_coord1, sqr_dif) +
-                         outer(newdata_coord2, data_coord2, sqr_dif))
+      outer(newdata_coord2, data_coord2, sqr_dif))
 
     # return the distance
     return(eucdist_2d)

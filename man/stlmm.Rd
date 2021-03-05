@@ -18,7 +18,7 @@ stlmm(data, formula, ...)
   s_cor = "exponential",
   t_cor = "exponential",
   chol = FALSE,
-  condition = 0.0001,
+  condition = 1e-04,
   logdet = FALSE,
   weights = "cressie",
   initial = NULL,

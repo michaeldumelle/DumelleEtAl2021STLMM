@@ -17,14 +17,13 @@ make_h <- function(coord1, coord2 = NULL, distmetric = "euclidean") {
     distmetric,
     euclidean = eucdist(coord1, coord2),
     stop("invalid distance metric")
-    )
+  )
 }
 
 
 
 # compute the euclidean distance
 eucdist <- function(coord1, coord2 = NULL) {
-
   if (is.null(coord2)) {
     # euclidean distance if 1d
     eucdist_1d <- sqrt(outer(coord1, coord1, sqr_dif))

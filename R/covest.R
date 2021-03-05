@@ -1,9 +1,9 @@
-covest <- function(par, covest_object, ...){
+covest <- function(par, covest_object, ...) {
   UseMethod("covest", object = covest_object)
 }
 
 # semivariogram weighted least squares optimization
-covest.svwls <- function(par, covest_object, data_object){
+covest.svwls <- function(par, covest_object, data_object) {
 
   # transform profiled variance parameters to regular
   plo2r <- plo2r.svwls(par, covest_object)
@@ -22,9 +22,9 @@ covest.svwls <- function(par, covest_object, data_object){
   # create the weights used in the weighted least squares optimization
   wts <- switch(
     covest_object$weights,
-      "cressie" = weights_cressie(sv = covest_object$stempsv, theo_sv = theo_sv),
-      stop("choose valid weights")
-    )
+    "cressie" = weights_cressie(sv = covest_object$stempsv, theo_sv = theo_sv),
+    stop("choose valid weights")
+  )
 
   # create the objective function
   sumsq <- (covest_object$stempsv$gammahat - theo_sv)^2
@@ -40,7 +40,7 @@ weights_cressie <- function(sv, theo_sv) {
 }
 
 # reml optimization
-covest.reml <- function(par, covest_object, invert_object){
+covest.reml <- function(par, covest_object, invert_object) {
 
   # transform profiled variance parameters to regular
   ## the overall variance is 1 because it has been profiled
@@ -58,5 +58,3 @@ covest.reml <- function(par, covest_object, invert_object){
   # return minus twice the negative log likelihood
   return(m2ll)
 }
-
-

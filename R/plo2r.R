@@ -1,21 +1,21 @@
-plo2r <- function(par, covest_object, ...){
+plo2r <- function(par, covest_object, ...) {
   # calling the appropriate estimation method / stcov type generic (class/sub)
   UseMethod("plo2r", object = covest_object)
 }
 
 # the profiled log odds to regular for semivariogram-weighted least squares
-plo2r.svwls <- function(par, covest_object){
+plo2r.svwls <- function(par, covest_object) {
 
   # calling the appropriate estimation method generic
   UseMethod("plo2r.svwls", object = covest_object)
 }
 
 # the svwls productsum plo2r
-plo2r.svwls.productsum <- function(par, covest_object){
+plo2r.svwls.productsum <- function(par, covest_object) {
 
   # set reasonable bounds on what the exponentiated plo parameters can be - this was a frustrating bug to find
-  par[par > 7] = 7
-  par[par < -7] = -7
+  par[par > 7] <- 7
+  par[par < -7] <- -7
 
   # inverse logit the parameter vector
   invlogit <- exp(par) / (1 + exp(par))
@@ -45,11 +45,11 @@ plo2r.svwls.productsum <- function(par, covest_object){
     t_ie = t_ie,
     st_de = st_de,
     st_ie = st_ie
-    ),
-    # range capped by max_s_range
-    s_range = covest_object$max_options$max_s_range * invlogit[["srange_prop"]],
-    # range capped by max_t_range
-    t_range = covest_object$max_options$max_t_range * invlogit[["trange_prop"]]
+  ),
+  # range capped by max_s_range
+  s_range = covest_object$max_options$max_s_range * invlogit[["srange_prop"]],
+  # range capped by max_t_range
+  t_range = covest_object$max_options$max_t_range * invlogit[["trange_prop"]]
   )
 
   # returning the parameters
@@ -57,11 +57,11 @@ plo2r.svwls.productsum <- function(par, covest_object){
 }
 
 
-plo2r.svwls.sum_with_error <- function(par, covest_object){
+plo2r.svwls.sum_with_error <- function(par, covest_object) {
 
   # set reasonable bounds on what the exponentiated plo parameters can be - this was a frustrating bug to find
-  par[par > 7] = 7
-  par[par < -7] = -7
+  par[par > 7] <- 7
+  par[par < -7] <- -7
 
   # inverse logit the parameter vector
   invlogit <- exp(par) / (1 + exp(par))
@@ -90,21 +90,21 @@ plo2r.svwls.sum_with_error <- function(par, covest_object){
     t_de = t_de,
     t_ie = t_ie,
     st_ie = st_ie
-    ),
-    # range parameter capped by max_s_range
-    s_range = covest_object$max_options$max_s_range * invlogit[["srange_prop"]],
-    # range parameter capepd by max_t_range
-    t_range = covest_object$max_options$max_t_range * invlogit[["trange_prop"]]
+  ),
+  # range parameter capped by max_s_range
+  s_range = covest_object$max_options$max_s_range * invlogit[["srange_prop"]],
+  # range parameter capepd by max_t_range
+  t_range = covest_object$max_options$max_t_range * invlogit[["trange_prop"]]
   )
   # returning the parameters
   return(rparm)
 }
 
-plo2r.svwls.product <- function(par, covest_object){
+plo2r.svwls.product <- function(par, covest_object) {
 
   # set reasonable bounds on what the exponentiated plo parameters can be - this was a frustrating bug to find
-  par[par > 7] = 7
-  par[par < -7] = -7
+  par[par > 7] <- 7
+  par[par < -7] <- -7
 
   # inverse logit the parameter vector
   invlogit <- exp(par) / (1 + exp(par))
@@ -133,15 +133,15 @@ plo2r.svwls.product <- function(par, covest_object){
 
 
 # profiled log odds generic for reml
-plo2r.reml <- function(par, covest_object, ...){
+plo2r.reml <- function(par, covest_object, ...) {
   UseMethod("plo2r.reml", object = covest_object)
 }
 
-plo2r.reml.productsum <- function(par, covest_object, ov_var){
+plo2r.reml.productsum <- function(par, covest_object, ov_var) {
 
   # set reasonable bounds on what the exponentiated plo parameters can be - this was a frustrating bug to find
-  par[par > 7] = 7
-  par[par < -7] = -7
+  par[par > 7] <- 7
+  par[par < -7] <- -7
 
   # inverse logit the parameter vector
   invlogit <- exp(par) / (1 + exp(par))
@@ -181,11 +181,11 @@ plo2r.reml.productsum <- function(par, covest_object, ov_var){
 }
 
 
-plo2r.reml.sum_with_error <- function(par, covest_object, ov_var){
+plo2r.reml.sum_with_error <- function(par, covest_object, ov_var) {
 
   # set reasonable bounds on what the exponentiated plo parameters can be - this was a frustrating bug to find
-  par[par > 7] = 7
-  par[par < -7] = -7
+  par[par > 7] <- 7
+  par[par < -7] <- -7
 
   # inverse logit the parameter vector
   invlogit <- exp(par) / (1 + exp(par))
@@ -221,11 +221,11 @@ plo2r.reml.sum_with_error <- function(par, covest_object, ov_var){
   return(rparm)
 }
 
-plo2r.reml.product <- function(par, covest_object, ov_var){
+plo2r.reml.product <- function(par, covest_object, ov_var) {
 
   # set reasonable bounds on what the exponentiated plo parameters can be - this was a frustrating bug to find
-  par[par > 7] = 7
-  par[par < -7] = -7
+  par[par > 7] <- 7
+  par[par < -7] <- -7
 
   # inverse logit the parameter vector
   invlogit <- exp(par) / (1 + exp(par))

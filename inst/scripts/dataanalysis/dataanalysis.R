@@ -20,11 +20,7 @@ or_test <- subset(or_data, TYPE == "TEST")
 # Save the conduct data analysis function -------------------------------------
 # conduct data anlaysis
 conduct_dataanalysis <- function(trial) {
-
-
   create_models <- function(data, siminitial) {
-
-
     ps_reml_mod <- stlmm(
       formula = TMAX ~ ELEVATION + TIMES + PRCP,
       data = data,
@@ -134,46 +130,55 @@ conduct_dataanalysis <- function(trial) {
   t_ie_initial <- 2
   st_de_initial <- 7
   st_ie_initial <- 7
-  total_var_initial <- sum(s_de_initial, s_ie_initial, t_de_initial,
-                           t_ie_initial, st_de_initial, st_ie_initial)
+  total_var_initial <- sum(
+    s_de_initial, s_ie_initial, t_de_initial,
+    t_ie_initial, st_de_initial, st_ie_initial
+  )
   s_range_initial <- 1000
   t_range_initial <- 4
   swe_scale <- total_var_initial / (total_var_initial - st_de_initial)
 
-  siminitial <- list(ps_reml = make_covparam_object(s_de = s_de_initial, s_ie = s_ie_initial,
-                                                    t_ie = t_ie_initial, t_de = t_de_initial,
-                                                    st_de = st_de_initial, st_ie = st_ie_initial,
-                                                    s_range = s_range_initial, t_range = t_range_initial,
-                                                    stcov = "productsum", estmethod = "reml"
-  ),
-  swe_reml = make_covparam_object(s_de = swe_scale * s_de_initial, s_ie = swe_scale * s_ie_initial,
-                                  t_ie = swe_scale * t_de_initial, t_de = swe_scale * t_ie_initial,
-                                  st_ie = swe_scale * st_ie_initial, s_range = s_range_initial, t_range = t_range_initial,
-                                  stcov = "sum_with_error", estmethod = "reml"
-  ),
-  p_reml = make_covparam_object(st_de = total_var_initial,
-                                v_s = s_ie_initial / (s_ie_initial + s_de_initial),
-                                v_t = t_ie_initial / (t_ie_initial + t_de_initial),
-                                s_range = s_range_initial, t_range = t_range_initial,
-                                stcov = "product", estmethod = "reml"
-  ),
-  ps_svwls = make_covparam_object(s_de = s_de_initial, s_ie = s_ie_initial,
-                                  t_ie = t_ie_initial, t_de = t_de_initial,
-                                  st_de = st_de_initial, st_ie = st_ie_initial,
-                                  s_range = s_range_initial, t_range = t_range_initial,
-                                  stcov = "productsum", estmethod = "svwls"
-  ),
-  swe_reml = make_covparam_object(s_de = swe_scale * s_de_initial, s_ie = swe_scale * s_ie_initial,
-                                  t_ie = swe_scale * t_de_initial, t_de = swe_scale * t_ie_initial,
-                                  st_ie = swe_scale * st_ie_initial, s_range = s_range_initial, t_range = t_range_initial,
-                                  stcov = "sum_with_error", estmethod = "svwls"
-  ),
-  p_reml = make_covparam_object(st_de = total_var_initial,
-                                v_s = s_ie_initial / (s_ie_initial + s_de_initial),
-                                v_t = t_ie_initial / (t_ie_initial + t_de_initial),
-                                s_range = s_range_initial, t_range = t_range_initial,
-                                stcov = "product", estmethod = "svwls"
-  )
+  siminitial <- list(
+    ps_reml = make_covparam_object(
+      s_de = s_de_initial, s_ie = s_ie_initial,
+      t_ie = t_ie_initial, t_de = t_de_initial,
+      st_de = st_de_initial, st_ie = st_ie_initial,
+      s_range = s_range_initial, t_range = t_range_initial,
+      stcov = "productsum", estmethod = "reml"
+    ),
+    swe_reml = make_covparam_object(
+      s_de = swe_scale * s_de_initial, s_ie = swe_scale * s_ie_initial,
+      t_ie = swe_scale * t_de_initial, t_de = swe_scale * t_ie_initial,
+      st_ie = swe_scale * st_ie_initial, s_range = s_range_initial, t_range = t_range_initial,
+      stcov = "sum_with_error", estmethod = "reml"
+    ),
+    p_reml = make_covparam_object(
+      st_de = total_var_initial,
+      v_s = s_ie_initial / (s_ie_initial + s_de_initial),
+      v_t = t_ie_initial / (t_ie_initial + t_de_initial),
+      s_range = s_range_initial, t_range = t_range_initial,
+      stcov = "product", estmethod = "reml"
+    ),
+    ps_svwls = make_covparam_object(
+      s_de = s_de_initial, s_ie = s_ie_initial,
+      t_ie = t_ie_initial, t_de = t_de_initial,
+      st_de = st_de_initial, st_ie = st_ie_initial,
+      s_range = s_range_initial, t_range = t_range_initial,
+      stcov = "productsum", estmethod = "svwls"
+    ),
+    swe_reml = make_covparam_object(
+      s_de = swe_scale * s_de_initial, s_ie = swe_scale * s_ie_initial,
+      t_ie = swe_scale * t_de_initial, t_de = swe_scale * t_ie_initial,
+      st_ie = swe_scale * st_ie_initial, s_range = s_range_initial, t_range = t_range_initial,
+      stcov = "sum_with_error", estmethod = "svwls"
+    ),
+    p_reml = make_covparam_object(
+      st_de = total_var_initial,
+      v_s = s_ie_initial / (s_ie_initial + s_de_initial),
+      v_t = t_ie_initial / (t_ie_initial + t_de_initial),
+      s_range = s_range_initial, t_range = t_range_initial,
+      stcov = "product", estmethod = "svwls"
+    )
   )
 
   models <- create_models(or_train, siminitial)
@@ -209,7 +214,6 @@ conduct_dataanalysis <- function(trial) {
   predictions <- create_predictions(data_m = or_test, models = models)
 
   get_fixed <- function(models) {
-
     fixed_ps_reml <- data.frame(
       stcov = "productsum",
       estmethod = "reml",
@@ -286,7 +290,6 @@ conduct_dataanalysis <- function(trial) {
   fixed <- get_fixed(models = models)
 
   get_prediction <- function(data_m, predictions) {
-
     prediction_ps_reml <- data.frame(
       stcov = "productsum",
       estmethod = "reml",
@@ -359,11 +362,9 @@ conduct_dataanalysis <- function(trial) {
     prediction$z <- (prediction$est - prediction$response) / prediction$se
 
     return(prediction)
-
   }
 
   get_covparams <- function(models) {
-
     ps_reml_covparams <- data.frame(
       stcov = "productsum",
       estmethod = "reml",
@@ -418,7 +419,6 @@ conduct_dataanalysis <- function(trial) {
     covparams <- do.call(rbind, covparams)
 
     return(covparams)
-
   }
 
   covparams <- get_covparams(models = models)
@@ -426,7 +426,6 @@ conduct_dataanalysis <- function(trial) {
   prediction <- get_prediction(data_m = or_test, predictions = predictions)
 
   get_objectives <- function(models) {
-
     ps_reml_objective <- data.frame(
       stcov = "productsum",
       estmethod = "reml",
@@ -472,13 +471,15 @@ conduct_dataanalysis <- function(trial) {
       result = models$p_svwls_mod$Objective[-3] # this is the counts.gradient output
     )
 
-    #storing the average stempsv time as the exact quantity is computed 3 times
-    stempsv_average <- mean(c(ps_svwls_objective$result[ps_svwls_objective$quantity == "stemp_seconds"],
-                              swe_svwls_objective$result[swe_svwls_objective$quantity == "stemp_seconds"],
-                              p_svwls_objective$result[p_svwls_objective$quantity == "stemp_seconds"]))
-    ps_svwls_objective$result[ps_svwls_objective$quantity == "stemp_seconds"] = stempsv_average
-    swe_svwls_objective$result[swe_svwls_objective$quantity == "stemp_seconds"] = stempsv_average
-    p_svwls_objective$result[p_svwls_objective$quantity == "stemp_seconds"] = stempsv_average
+    # storing the average stempsv time as the exact quantity is computed 3 times
+    stempsv_average <- mean(c(
+      ps_svwls_objective$result[ps_svwls_objective$quantity == "stemp_seconds"],
+      swe_svwls_objective$result[swe_svwls_objective$quantity == "stemp_seconds"],
+      p_svwls_objective$result[p_svwls_objective$quantity == "stemp_seconds"]
+    ))
+    ps_svwls_objective$result[ps_svwls_objective$quantity == "stemp_seconds"] <- stempsv_average
+    swe_svwls_objective$result[swe_svwls_objective$quantity == "stemp_seconds"] <- stempsv_average
+    p_svwls_objective$result[p_svwls_objective$quantity == "stemp_seconds"] <- stempsv_average
 
     objectives <- list(
       ps_reml_objective = ps_reml_objective,
@@ -505,7 +506,7 @@ conduct_dataanalysis <- function(trial) {
 
 
 # Run the data analysis function ----------------------------------------------
-dataanalysis <-  lapply(as.list(1), conduct_dataanalysis)
+dataanalysis <- lapply(as.list(1), conduct_dataanalysis)
 
 # Summarize the output --------------------------------------------------------
 

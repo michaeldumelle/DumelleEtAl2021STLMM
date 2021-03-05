@@ -1,10 +1,10 @@
-residuals.stlmm <- function(object, type = "raw", ...){
+residuals.stlmm <- function(object, type = "raw", ...) {
 
   # calling the function for the raw residuals
   if (type == "raw") {
 
-  # computing the raw residuals
-  residuals <- object$model$Response - object$model$FixedDesignMatrix %*% object$Coefficients
+    # computing the raw residuals
+    residuals <- object$model$Response - object$model$FixedDesignMatrix %*% object$Coefficients
   }
 
   # returning the type of the residuals as an attribute

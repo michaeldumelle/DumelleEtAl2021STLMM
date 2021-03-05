@@ -9,8 +9,7 @@ make_stsemivariogram <- function(covparam_object,
                                  h_s_large,
                                  h_t_large,
                                  s_cor,
-                                 t_cor
-                                 ) {
+                                 t_cor) {
 
   # call the appropriate generic
   UseMethod("make_stsemivariogram", object = covparam_object)
@@ -26,8 +25,7 @@ make_stsemivariogram.productsum <- function(covparam_object,
                                             h_s_large,
                                             h_t_large,
                                             s_cor,
-                                            t_cor
-                                            ) {
+                                            t_cor) {
 
   # make the productsum semivariogram
   # taking the variance parameters from the covparam_object
@@ -83,7 +81,7 @@ make_stsemivariogram.sum_with_error <- function(covparam_object,
 #' @export make_stsemivariogram.product
 #' @export
 make_stsemivariogram.product <- function(covparam_object, h_s_large, h_t_large,
-                                             s_cor, t_cor){
+                                         s_cor, t_cor) {
 
   # taking the variance parameters from the covparam_object
   variances <- c(covparam_object[c("st_de")])

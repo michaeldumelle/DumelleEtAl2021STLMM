@@ -35,7 +35,7 @@ conduct_inverses <- function(n_s, n_t, n_m, n_rep) {
   ## coordinates
   xcoord <- rep(runif(n_s), times = n_t)
   ycoord <- rep(runif(n_s), times = n_t)
-  #tcoord <- rep(runif(n_t), each = n_s)
+  # tcoord <- rep(runif(n_t), each = n_s)
   tcoord <- rep(seq(0, 1, length.out = n_t), each = n_s) * (n_t - 1) + 1
 
 
@@ -87,14 +87,12 @@ conduct_inverses <- function(n_s, n_t, n_m, n_rep) {
     s_cor = s_cor,
     t_cor = t_cor,
     error = "normal",
-    data = data)
-  )
+    data = data
+  ))
 
 
   ## make intial value function
   create_siminitial <- function(s_de, s_ie, t_de, t_ie, st_de, st_ie, s_range, t_range) {
-
-
     s_de_initial <- s_de
     s_ie_initial <- s_ie
     t_de_initial <- t_de
@@ -122,7 +120,6 @@ conduct_inverses <- function(n_s, n_t, n_m, n_rep) {
     swe_scale <- total_var_initial / (total_var_initial - st_de)
 
     if (swe_scale == Inf) {
-
       swe_initial <- make_covparam_object(
         s_de = total_var_initial / 5,
         s_ie = total_var_initial / 5,
@@ -133,9 +130,7 @@ conduct_inverses <- function(n_s, n_t, n_m, n_rep) {
         t_range = t_range_initial,
         stcov = "sum_with_error"
       )
-
     } else {
-
       swe_initial <- make_covparam_object(
         s_de = swe_scale * s_de_initial,
         s_ie = swe_scale * s_ie_initial,
@@ -167,14 +162,15 @@ conduct_inverses <- function(n_s, n_t, n_m, n_rep) {
   }
 
   ## construct initial values
-  siminitial <- create_siminitial(s_de = s_de,
-                                  s_ie = s_ie,
-                                  t_de = t_de,
-                                  t_ie = t_ie,
-                                  st_de = st_de,
-                                  st_ie = st_ie,
-                                  s_range = s_range,
-                                  t_range = t_range
+  siminitial <- create_siminitial(
+    s_de = s_de,
+    s_ie = s_ie,
+    t_de = t_de,
+    t_ie = t_ie,
+    st_de = st_de,
+    st_ie = st_ie,
+    s_range = s_range,
+    t_range = t_range
   )
 
   ## simulating missing values
@@ -183,69 +179,72 @@ conduct_inverses <- function(n_s, n_t, n_m, n_rep) {
   data_object <- make_data_object(response ~ 1, "xcoord", "ycoord", "tcoord", subset(data, observed), h_options = NULL)
 
   create_invert_objects <- function(data_object, siminitial) {
-
-    ps_invert_object <- make_invert_object(covparam_object = siminitial$ps_initial,
-                                           chol = FALSE,
-                                           condition = 1e-4,
-                                           h_s_small = data_object$h_s_small,
-                                           h_t_small = data_object$h_t_small,
-                                           logdet = FALSE,
-                                           o_index = data_object$o_index,
-                                           m_index = data_object$m_index,
-                                           s_cor = "exponential",
-                                           t_cor = "tent",
-                                           xo = data_object$ordered_xo,
-                                           yo = data_object$ordered_yo
+    ps_invert_object <- make_invert_object(
+      covparam_object = siminitial$ps_initial,
+      chol = FALSE,
+      condition = 1e-4,
+      h_s_small = data_object$h_s_small,
+      h_t_small = data_object$h_t_small,
+      logdet = FALSE,
+      o_index = data_object$o_index,
+      m_index = data_object$m_index,
+      s_cor = "exponential",
+      t_cor = "tent",
+      xo = data_object$ordered_xo,
+      yo = data_object$ordered_yo
     )
 
-    swe_invert_object <- make_invert_object(covparam_object = siminitial$swe_initial,
-                                            chol = FALSE,
-                                            condition = 1e-4,
-                                            h_s_small = data_object$h_s_small,
-                                            h_t_small = data_object$h_t_small,
-                                            logdet = FALSE,
-                                            o_index = data_object$o_index,
-                                            m_index = data_object$m_index,
-                                            s_cor = "exponential",
-                                            t_cor = "tent",
-                                            xo = data_object$ordered_xo,
-                                            yo = data_object$ordered_yo
+    swe_invert_object <- make_invert_object(
+      covparam_object = siminitial$swe_initial,
+      chol = FALSE,
+      condition = 1e-4,
+      h_s_small = data_object$h_s_small,
+      h_t_small = data_object$h_t_small,
+      logdet = FALSE,
+      o_index = data_object$o_index,
+      m_index = data_object$m_index,
+      s_cor = "exponential",
+      t_cor = "tent",
+      xo = data_object$ordered_xo,
+      yo = data_object$ordered_yo
     )
 
-    p_invert_object <- make_invert_object(covparam_object = siminitial$p_initial,
-                                          chol = FALSE,
-                                          condition = 1e-4,
-                                          h_s_small = data_object$h_s_small,
-                                          h_t_small = data_object$h_t_small,
-                                          logdet = FALSE,
-                                          o_index = data_object$o_index,
-                                          m_index = data_object$m_index,
-                                          s_cor = "exponential",
-                                          t_cor = "tent",
-                                          xo = data_object$ordered_xo,
-                                          yo = data_object$ordered_yo
+    p_invert_object <- make_invert_object(
+      covparam_object = siminitial$p_initial,
+      chol = FALSE,
+      condition = 1e-4,
+      h_s_small = data_object$h_s_small,
+      h_t_small = data_object$h_t_small,
+      logdet = FALSE,
+      o_index = data_object$o_index,
+      m_index = data_object$m_index,
+      s_cor = "exponential",
+      t_cor = "tent",
+      xo = data_object$ordered_xo,
+      yo = data_object$ordered_yo
     )
 
-    chol_invert_object <- make_invert_object(covparam_object = siminitial$ps_initial,
-                                             chol = TRUE,
-                                             condition = 1e-4,
-                                             h_s_large = data_object$h_s_large,
-                                             h_t_large = data_object$h_t_large,
-                                             logdet = FALSE,
-                                             o_index = data_object$o_index,
-                                             m_index = data_object$m_index,
-                                             s_cor = "exponential",
-                                             t_cor = "tent",
-                                             xo = data_object$ordered_xo,
-                                             yo = data_object$ordered_yo
+    chol_invert_object <- make_invert_object(
+      covparam_object = siminitial$ps_initial,
+      chol = TRUE,
+      condition = 1e-4,
+      h_s_large = data_object$h_s_large,
+      h_t_large = data_object$h_t_large,
+      logdet = FALSE,
+      o_index = data_object$o_index,
+      m_index = data_object$m_index,
+      s_cor = "exponential",
+      t_cor = "tent",
+      xo = data_object$ordered_xo,
+      yo = data_object$ordered_yo
     )
 
-    return(list(ps_invert_object = ps_invert_object,
-                swe_invert_object = swe_invert_object,
-                p_invert_object = p_invert_object,
-                chol_invert_object = chol_invert_object
-    )
-    )
+    return(list(
+      ps_invert_object = ps_invert_object,
+      swe_invert_object = swe_invert_object,
+      p_invert_object = p_invert_object,
+      chol_invert_object = chol_invert_object
+    ))
   }
 
   invert_objects <- create_invert_objects(data_object = data_object, siminitial = siminitial)
@@ -253,31 +252,43 @@ conduct_inverses <- function(n_s, n_t, n_m, n_rep) {
 
 
 
-  ps_times <- microbenchmark::microbenchmark(productsum = invert.productsum(invert_objects$ps_invert_object),
-                                             times = n_rep)
+  ps_times <- microbenchmark::microbenchmark(
+    productsum = invert.productsum(invert_objects$ps_invert_object),
+    times = n_rep
+  )
 
   ps_times$rep <- 1:n_rep
 
-  swe_times <- microbenchmark::microbenchmark(sum_with_error = invert.sum_with_error(invert_objects$swe_invert_object),
-                                              times = n_rep)
+  swe_times <- microbenchmark::microbenchmark(
+    sum_with_error = invert.sum_with_error(invert_objects$swe_invert_object),
+    times = n_rep
+  )
   swe_times$rep <- 1:n_rep
 
-  p_times <- microbenchmark::microbenchmark(product = invert.product(invert_objects$p_invert_object),
-                                            times = n_rep)
+  p_times <- microbenchmark::microbenchmark(
+    product = invert.product(invert_objects$p_invert_object),
+    times = n_rep
+  )
   p_times$rep <- 1:n_rep
 
 
-  chol_times <- microbenchmark::microbenchmark(cholesky = invert.productsum(invert_objects$chol_invert_object),
-                                               times = n_rep)
+  chol_times <- microbenchmark::microbenchmark(
+    cholesky = invert.productsum(invert_objects$chol_invert_object),
+    times = n_rep
+  )
   chol_times$rep <- 1:n_rep
 
   h_response <- make_h(coord1 = data_object$ordered_yo, distmetric = "euclidean")^2
 
 
-  stempsv_fast_times <- microbenchmark::microbenchmark(stempsv = stempsv(h_response = h_response,
-                                                                         h_s_large = data_object$h_s_large,
-                                                                         h_t_large = data_object$h_t_large),
-                                                       times = n_rep)
+  stempsv_fast_times <- microbenchmark::microbenchmark(
+    stempsv = stempsv(
+      h_response = h_response,
+      h_s_large = data_object$h_s_large,
+      h_t_large = data_object$h_t_large
+    ),
+    times = n_rep
+  )
   stempsv_fast_times$rep <- 1:n_rep
 
   invert_times <- as.data.frame(rbind(ps_times, swe_times, p_times, chol_times, stempsv_fast_times))
@@ -289,7 +300,6 @@ conduct_inverses <- function(n_s, n_t, n_m, n_rep) {
   colnames(invert_times) <- c("algorithm", "time", "rep", "n_st")
 
   return(invert_times)
-
 }
 
 # Run the conduct inverses function -------------------------------------------
@@ -298,7 +308,7 @@ conduct_inverses <- function(n_s, n_t, n_m, n_rep) {
 n_st_sizes <- seq(1000, 15000, by = 1000)
 # round the square root so spatio-temporal combinations can be chosen
 sizes <- round(sqrt(n_st_sizes))
-#choose the number of missing values
+# choose the number of missing values
 n_m <- 1
 # choose the number of inversion replicates
 n_rep <- 100
@@ -326,10 +336,11 @@ inverse_avg <- inverse_full %>%
 inverse_ratios <- inverse_full %>%
   pivot_wider(names_from = algorithm, values_from = time) %>%
   group_by(n_st) %>%
-  summarize(psratio = mean(cholesky) / mean(productsum),
-            sweratio = mean(cholesky) / mean(sum_with_error),
-            pratio = mean(cholesky) / mean(product)
-            ) %>%
+  summarize(
+    psratio = mean(cholesky) / mean(productsum),
+    sweratio = mean(cholesky) / mean(sum_with_error),
+    pratio = mean(cholesky) / mean(product)
+  ) %>%
   pivot_longer(c(psratio, sweratio, pratio), names_to = "algorithm", values_to = "ratio")
 
 

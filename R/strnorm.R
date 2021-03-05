@@ -122,13 +122,12 @@ strnorm.default <- function(object,
                             t_cor,
                             chol = FALSE,
                             h_options = NULL,
-                            ...
-                            ) {
+                            ...) {
   # the deafult simulation method
   # the user does not have to provide a covariance matrix
   # setting default h options if none are provided
-  if (is.null(h_options)){
-    h_options = list(
+  if (is.null(h_options)) {
+    h_options <- list(
       h_large = TRUE,
       h_t_distmetric = "euclidean",
       h_s_distmetric = "euclidean"
@@ -137,10 +136,10 @@ strnorm.default <- function(object,
 
   # simulation the random vector by cholesky decompositing
   # the full covariance matrix
-  if (chol){
+  if (chol) {
 
     # compute the large spatial distance matrices in 1d
-    if (is.null(ycoord)){
+    if (is.null(ycoord)) {
 
       # compute the large spatial distance matrix
       h_s_large <- make_h(
@@ -153,8 +152,7 @@ strnorm.default <- function(object,
         coord1 = data[[tcoord]],
         distmetric = h_options$h_t_distmetric
       )
-
-    } else {  # compute the large spatial distance matrices in 2d
+    } else { # compute the large spatial distance matrices in 2d
 
       # compute the large spatial distance matrix
       h_s_large <- make_h(
@@ -234,10 +232,10 @@ strnorm.default <- function(object,
     )
 
     # removing the spatio-temporal observations not provided
-    strnorm_sim <- strnorm_sim[spint$ordered_data_dense$observed, , drop = FALSE ]
+    strnorm_sim <- strnorm_sim[spint$ordered_data_dense$observed, , drop = FALSE]
 
     # ordering by the original data
-    strnorm_sim <- strnorm_sim[order(spint$ordered_data_o$original_key), , drop = FALSE ]
+    strnorm_sim <- strnorm_sim[order(spint$ordered_data_o$original_key), , drop = FALSE]
 
     # adding the mean
     strnorm_sim <- mu + strnorm_sim
@@ -362,7 +360,7 @@ strnorm_small.productsum <- function(covparam_object, mu, size, r_s_small, r_t_s
   return(strnorm_small_sim)
 }
 
-strnorm_small.sum_with_error <- function(covparam_object, mu, size, r_s_small, r_t_small){
+strnorm_small.sum_with_error <- function(covparam_object, mu, size, r_s_small, r_t_small) {
 
   # storing the lower spatial cholesky
   chol_r_s_small <- t(chol(r_s_small))
@@ -441,7 +439,7 @@ strnorm_small.sum_with_error <- function(covparam_object, mu, size, r_s_small, r
 }
 
 
-strnorm_small.product <- function(covparam_object, mu, size, r_s_small, r_t_small){
+strnorm_small.product <- function(covparam_object, mu, size, r_s_small, r_t_small) {
 
   # store the lower spatial cholesky
   chol_r_s_small <- t(chol(r_s_small))

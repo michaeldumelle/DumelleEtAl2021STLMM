@@ -158,7 +158,7 @@ r2plo.reml <- function(covparam_object, ...) {
 }
 
 # the reml productsum r2plo
-r2plo.reml.productsum <- function(covparam_object, max_options){
+r2plo.reml.productsum <- function(covparam_object, max_options) {
   # giving covparam_object a new name
   params <- covparam_object
 
@@ -296,6 +296,3 @@ r2plo.reml.product <- function(covparam_object, max_options) {
   # returning the logit of the profiled parameters
   return(pparm)
 }
-
-
-

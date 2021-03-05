@@ -17,7 +17,7 @@ make_r <- function(h, range, structure = c("exponential", "spherical", "gaussian
 r_exp <- function(h, range) {
 
   # compute the exponential correlation
-  r <- exp(- (3 * (h / range)))
+  r <- exp(-(3 * (h / range)))
 
   # return the exponential correlation
   return(r)
@@ -37,7 +37,7 @@ r_sph <- function(h, range) {
 r_gau <- function(h, range) {
 
   # compute the gaussian correlation
-  r <- exp(- (3 * (h / range)^2))
+  r <- exp(-(3 * (h / range)^2))
 
   # return the gaussian correlation
   return(r)
@@ -47,9 +47,8 @@ r_gau <- function(h, range) {
 r_tent <- function(h, range) {
 
   # compute the tent correlation
-  r <- (1 - h/range) * (h <= range)
+  r <- (1 - h / range) * (h <= range)
 
   # return the tent correlation
   return(r)
 }
-

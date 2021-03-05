@@ -35,19 +35,18 @@ or_locations <- ggplot() +
   scale_color_manual(values = c("black", "black"), name = "Spatial Locations") +
   guides(colour = guide_legend(override.aes = list(shape = c(19, 4)))) +
   expand_limits(y = c(0, 600)) +
-  theme(legend.position = c(0.44, 0.88),
-        legend.text = element_text(size = 23),
-        legend.title = element_text(size = 23, face = "bold"),
-        axis.text = element_blank(),
-        axis.ticks = element_blank(),
-        axis.title = element_blank(),
-        legend.key = element_rect(fill = NA),
-        legend.key.size = unit(2.5,"line"),
-        panel.background = element_blank())
+  theme(
+    legend.position = c(0.44, 0.88),
+    legend.text = element_text(size = 23),
+    legend.title = element_text(size = 23, face = "bold"),
+    axis.text = element_blank(),
+    axis.ticks = element_blank(),
+    axis.title = element_blank(),
+    legend.key = element_rect(fill = NA),
+    legend.key.size = unit(2.5, "line"),
+    panel.background = element_blank()
+  )
 
 if (write) {
   ggsave(plot = or_locations, width = 9, height = 7, units = "in", filename = "inst/images/or_locations.jpeg", dpi = 1200)
 }
-
-
-

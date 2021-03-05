@@ -1,4 +1,4 @@
-betaest <- function(xo, sigmainv_xyo, condition, return_estlist = FALSE){
+betaest <- function(xo, sigmainv_xyo, condition, return_estlist = FALSE) {
 
   # number of columns of X (of the observed data)
   ncol_xo <- ncol(xo)

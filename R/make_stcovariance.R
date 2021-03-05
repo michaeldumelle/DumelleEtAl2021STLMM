@@ -28,8 +28,7 @@ make_stcovariance <- function(covparam_object,
                               h_s_large,
                               h_t_large,
                               s_cor,
-                              t_cor
-                              ) {
+                              t_cor) {
 
   # call the appropriate generic
   UseMethod("make_stcovariance", object = covparam_object)
@@ -45,8 +44,7 @@ make_stcovariance.productsum <- function(covparam_object,
                                          h_s_large,
                                          h_t_large,
                                          s_cor,
-                                         t_cor
-                                         ) {
+                                         t_cor) {
   # creating the spatial correlation matrix
   r_s_large <- make_r(
     h = h_s_large,
@@ -102,8 +100,7 @@ make_stcovariance.sum_with_error <- function(covparam_object,
                                              h_s_large,
                                              h_t_large,
                                              s_cor,
-                                             t_cor
-                                             ) {
+                                             t_cor) {
   # creating the spatial correlation matrix
   r_s_large <- make_r(
     h = h_s_large,

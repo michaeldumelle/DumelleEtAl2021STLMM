@@ -70,12 +70,12 @@ predict.stlmm <- function(object,
 
 predict.stlmm_none <- function(object,
                                newdata,
-                               ...
-                               ) {
+                               ...) {
 
   # creating the model frame
   newdata_stmodel_frame <- model.frame(object$formula[-2], newdata,
-                                       na.action = stats::na.omit)
+    na.action = stats::na.omit
+  )
   # creating the fixed design matrix
   # -2 is to remove response from formula
   newdata_xo <- model.matrix(object$formula[-2], newdata_stmodel_frame)
@@ -94,11 +94,11 @@ predict.stlmm_confidence <- function(object,
                                      newdata,
                                      se.fit,
                                      predcov,
-                                     ...
-                                     ) {
+                                     ...) {
   # creating the model frame
   newdata_stmodel_frame <- model.frame(object$formula[-2], newdata,
-                                       na.action = stats::na.omit)
+    na.action = stats::na.omit
+  )
 
   # creating the fixed design matrix
   # -2 is to remove response from formula
@@ -152,12 +152,12 @@ predict.stlmm_prediction <- function(object,
                                      newdata,
                                      se.fit,
                                      predcov,
-                                     ...
-                                     ) {
+                                     ...) {
 
   # creating the model frame
   newdata_stmodel_frame <- model.frame(object$formula[-2], newdata,
-                                       na.action = stats::na.omit)
+    na.action = stats::na.omit
+  )
   # creating the fixed design matrix
   # -2 is to remove response from formula
   newdata_xo <- model.matrix(object$formula[-2], newdata_stmodel_frame)
@@ -193,7 +193,6 @@ predict.stlmm_prediction <- function(object,
       coord2 = newdata[[object$coordnames$ycoord]],
       distmetric = object$h_options$h_s_distmetric
     )
-
   }
 
   # make temporal distance matrices
@@ -285,8 +284,10 @@ predict.stlmm_prediction <- function(object,
     predcov <- NULL
     if (se.fit) {
       # storing the parameter names
-      vparm_names <- c("s_de", "s_ie", "t_de", "t_ie",
-                       "st_de", "st_ie")
+      vparm_names <- c(
+        "s_de", "s_ie", "t_de", "t_ie",
+        "st_de", "st_ie"
+      )
 
       # computing the overall variance by taking only the variance parameters in the
       # covariance parameter object
@@ -296,10 +297,10 @@ predict.stlmm_prediction <- function(object,
       se.fit <- vapply(
         1:nrow(newdata_xo),
         function(x) {
-        H <- newdata_xo[x, , drop = FALSE] - newdata_invxo[x, , drop = FALSE]
-        predvar <- varsum - newdata_data_stcovariance[x, , drop = FALSE] %*% invert_output$sigmainv_o[, x, drop = FALSE] +
-          H %*% object$CovCoefficients %*% t(H)
-        se.fit <- sqrt(predvar)
+          H <- newdata_xo[x, , drop = FALSE] - newdata_invxo[x, , drop = FALSE]
+          predvar <- varsum - newdata_data_stcovariance[x, , drop = FALSE] %*% invert_output$sigmainv_o[, x, drop = FALSE] +
+            H %*% object$CovCoefficients %*% t(H)
+          se.fit <- sqrt(predvar)
         },
         double(1)
       )
