@@ -111,53 +111,6 @@ conduct_dataanalysis <- function(trial) {
 
     ols_mod <- lm(TMAX ~ ELEVATION + TIMES + PRCP, data = data)
 
-    ## cholesky models
-    chol_ps_reml_mod <- stlmm(
-      formula = TMAX ~ ELEVATION + TIMES + PRCP,
-      data = data,
-      xcoord = "LONGITUDE",
-      ycoord = "LATITUDE",
-      tcoord = "TIMES",
-      stcov = "productsum",
-      estmethod = "reml",
-      s_cor = s_cor,
-      t_cor = t_cor,
-      initial = siminitial$ps_reml,
-      chol = TRUE,
-      condition = 0
-    )
-
-    chol_swe_reml_mod <- stlmm(
-      formula = TMAX ~ ELEVATION + TIMES + PRCP,
-      data = data,
-      xcoord = "LONGITUDE",
-      ycoord = "LATITUDE",
-      tcoord = "TIMES",
-      stcov = "sum_with_error",
-      estmethod = "reml",
-      s_cor = s_cor,
-      t_cor = t_cor,
-      initial = siminitial$swe_reml,
-      chol = TRUE,
-      condition = 0
-    )
-
-    chol_p_reml_mod <- stlmm(
-      formula = TMAX ~ ELEVATION + TIMES + PRCP,
-      data = data,
-      xcoord = "LONGITUDE",
-      ycoord = "LATITUDE",
-      tcoord = "TIMES",
-      stcov = "product",
-      estmethod = "reml",
-      s_cor = s_cor,
-      t_cor = t_cor,
-      initial = siminitial$p_reml,
-      chol = TRUE,
-      condition = 0
-    )
-
-
 
 
     models <- list(
@@ -167,17 +120,14 @@ conduct_dataanalysis <- function(trial) {
       swe_svwls_mod = swe_svwls_mod,
       p_reml_mod = p_reml_mod,
       p_svwls_mod = p_svwls_mod,
-      ols_mod = ols_mod,
-      chol_ps_reml_mod = chol_ps_reml_mod,
-      chol_swe_reml_mod = chol_swe_reml_mod,
-      chol_p_reml_mod = chol_p_reml_mod
+      ols_mod = ols_mod
     )
 
     return(models)
   }
   s_cor <- "exponential"
   t_cor <- "exponential"
-  #siminitial <- list(ps_reml = NULL, ps_svwls = NULL, swe_reml = NULL, swe_svwls = NULL, p_reml = NULL, p_svwls = NULL)
+
   s_de_initial <- 40
   s_ie_initial <- 2
   t_de_initial <- 2
@@ -484,12 +434,6 @@ conduct_dataanalysis <- function(trial) {
       result = models$ps_reml_mod$Objective[-3] # this is the counts.gradient output
     )
 
-    chol_ps_reml_objective <- data.frame(
-      stcov = "productsum",
-      estmethod = "reml_chol",
-      quantity = c("value", "counts", "convergence", "stemp_seconds", "optim_seconds"),
-      result = models$chol_ps_reml_mod$Objective[-3] # this is the counts.gradient output
-    )
 
     ps_svwls_objective <- data.frame(
       stcov = "productsum",
@@ -505,12 +449,6 @@ conduct_dataanalysis <- function(trial) {
       result = models$swe_reml_mod$Objective[-3] # this is the counts.gradient output
     )
 
-    chol_swe_reml_objective <- data.frame(
-      stcov = "sum_with_error",
-      estmethod = "reml_chol",
-      quantity = c("value", "counts", "convergence", "stemp_seconds", "optim_seconds"),
-      result = models$chol_swe_reml_mod$Objective[-3] # this is the counts.gradient output
-    )
 
     swe_svwls_objective <- data.frame(
       stcov = "sum_with_error",
@@ -526,12 +464,6 @@ conduct_dataanalysis <- function(trial) {
       result = models$p_reml_mod$Objective[-3] # this is the counts.gradient output
     )
 
-    chol_p_reml_objective <- data.frame(
-      stcov = "product",
-      estmethod = "reml_chol",
-      quantity = c("value", "counts", "convergence", "stemp_seconds", "optim_seconds"),
-      result = models$chol_p_reml_mod$Objective[-3] # this is the counts.gradient output
-    )
 
     p_svwls_objective <- data.frame(
       stcov = "product",
@@ -550,13 +482,10 @@ conduct_dataanalysis <- function(trial) {
 
     objectives <- list(
       ps_reml_objective = ps_reml_objective,
-      chol_ps_reml_objective = chol_ps_reml_objective,
       ps_svwls_objective = ps_svwls_objective,
       swe_reml_objective = swe_reml_objective,
-      chol_swe_reml_objective = chol_swe_reml_objective,
       swe_svwls_objective = swe_svwls_objective,
       p_reml_objective = p_reml_objective,
-      chol_p_reml_objective = chol_p_reml_objective,
       p_svwls_objective = p_svwls_objective
     )
 
