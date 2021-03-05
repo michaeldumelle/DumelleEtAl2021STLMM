@@ -26,7 +26,7 @@ The easiest way to install this R package is to run
 ```
 install.packages("devtools")
 library(devtools)
-install_github("michaeldumelle/DumelleEtAl2021STLMM")
+devtools::install_github("michaeldumelle/DumelleEtAl2021STLMM@main")
 ```
 
 After installation, the associated package files can be located on your machine via the `system.file()` function.
