@@ -6,7 +6,12 @@
 \alias{DumelleEtAl2021STLMM-package}
 \title{DumelleEtAl2021STLMM: Fit Spatio-Temporal Linear Mixed Models}
 \description{
-This package does stuff
+A Supplementary R Package to to "A Linear Mixed Model Formulation for
+Spatio-Temporal Random Processes with Computational Advances for the
+Product, Sum, and Product-Sum Covariances." The funtions most often
+used are \code{stlmm()} for fitting spatio-temporal linear mixed
+models, \code{summary()} for summarizing those models, and \code{predict}
+for making predictions.
 }
 \author{
 \strong{Maintainer}: Michael Dumelle \email{Dumelle.Michael@epa.gov} (\href{https://orcid.org/0000-0002-3393-5529}{ORCID})
