@@ -16,6 +16,10 @@
 ### Abstract
 To properly characterize a spatio-temporal random process, it is necessary to understand the process' dependence structure. It is common to describe this dependence using a single random error having a complicated covariance. Instead of using the single random error approach, we describe spatio-temporal random processes using linear mixed models having several random errors; each random error describes a specific quality of the covariance. This linear mixed model formulation is general and intuitive, and many commonly used covariances can be viewed as special cases of this formulation. We focus on using the linear mixed model formulation to express three covariances: product (separable), sum (linear), and product-sum. We discuss benefits and drawbacks of each covariance and propose a novel algorithm combining Stegle eigendecompositions, a recursive application of the Sherman-Morrison-Woodbury formula, and Helmert-Wolf blocking to efficiently invert their covariance matrices, even when every spatial location is not observed at every time point. Via a simulation study and an analysis of real temperature data in Oregon, USA, we assess computational and model performance of these covariances estimated using likelihood-based and semivariogram-based approaches. We end by offering guidelines for choosing among combinations of the covariances and estimation methods based on properties of observed data and the desired balance between computational efficiency and model performance. 
 
+### Package Overview
+
+This supplementary R package contains all files used in creation of this document. 
+
 ### Installation
 
 The easiest way to install this R package is to run
@@ -25,44 +29,65 @@ library(devtools)
 install_github("michaeldumelle/DumelleEtAl2021STLMM")
 ```
 
-### Data
+After installation, the associated package files can be located on your machine via the `system.file()` function.
 
-Oregon temperature data can be loaded by running 
-```
-data(or_train)
-data(or_test)
-```
+### Preprint
 
-### R Scripts
-
-The R scripts used for the simulation studies can be found by running
+The preprint is available at
 ```
-system.file("scripts/simulations/conduct_simulations.R", package = "DumelleEtAl2021STLMM")
-system.file("scripts/simulations/simulation1.R, package = "DumelleEtAl2021STLMM")
-system.file("scripts/simulations/simulation2.R, package = "DumelleEtAl2021STLMM")
-system.file("scripts/simulations/simulation3.R, package = "DumelleEtAl2021STLMM")
-system.file("scripts/simulations/simulation4.R, package = "DumelleEtAl2021STLMM")
-```
-The R scripts used for the inverse computation study can be found by running
-```
-system.file("scripts/inverses/conduct_inverses.R, package = "DumelleEtAl2021STLMM")
-system.file("scripts/inverses/inverses.R, package = "DumelleEtAl2021STLMM")
+system.file("preprint/preprint.pdf", package = "DumelleEtAl2021STLMM")
 ```
 
-The R scripts used for the data analysis can be found by running
+or alternatively can be downloaded [here](dummylink).
+
+### Images
+
+All images can be found at
 ```
-system.file("scripts/dataanalysis/conduct_dataanalysis.R, package = "DumelleEtAl2021STLMM")
-system.file("scripts/dataanalysis/dataanalysis.R, package = "DumelleEtAl2021STLMM")
+system.file("images", package = "DumelleEtAl2021STLMM")
 ```
 
-The simulation and inverse computation R scripts take days at the sample sizes used in the manuscript, so it is recommended to change the sample size arguments if testing locally.
+All R scripts used to create the images can be found at
+```
+system.file("scripts/images", package = "DumelleEtAl2021STLMM")
+```
 
-### Model Output
+These files are named corresponding to the figure numbers in the preprint.
 
-The model output from the R Scripts can be found 
+### Inversion and Empirical Semivariogram Computational Benchmarks
 
-Not sure if I want to keep CSV's in scripts, CSV's in a new folder, or as .rda files in data
+All R scripts used to study inversion and empirical semivariogram computational benchmarks (Section 4.3) can be found at
+```
+system.file("scripts/inverses", package = "DumelleEtAl2021STLMM")
+```
 
-### Source Document
+All output from these R scripts can be found at
+```
+system.file("output/inverses", package = "DumelleEtAl2021STLMM")
+```
 
-Will copy from Overleaf when done but before submitting
+### Simulation Study 
+
+All R scripts used in the simulation study (Section 5) can be found at
+```
+system.file("scripts/simulations", package = "DumelleEtAl2021STLMM")
+```
+
+All output from these R scripts can be found at
+```
+system.file("output/simulations", package = "DumelleEtAl2021STLMM")
+```
+
+### Data Analysis 
+
+All R scripts used in the data analysis (Section 6) can be found at
+```
+system.file("scripts/dataanalysis", package = "DumelleEtAl2021STLMM")
+```
+
+All output from these R scripts can be found at
+```
+system.file("output/dataanalysis", package = "DumelleEtAl2021STLMM")
+```
+
+### Thank you for visiting -- we hope you enjoyed the work!
