@@ -2,11 +2,11 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 [![minimal R version](https://img.shields.io/badge/R%3E%3D-2.1.0-6666ff.svg)](https://cran.r-project.org/) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/kotzeb0912)](https://cran.r-project.org/) [![packageversion](https://img.shields.io/badge/Package%20version-0.0.0.9000-orange.svg?style=flat-square)](https://github.com/michaeldumelle/DumelleEtAl2021STLMM)
-[![Last-changedate](https://img.shields.io/badge/last%20change-2021--01--27-blue.svg)](https://github.com/michaeldumelle/DumelleEtAl2021STLMM)
+[![Last-changedate](https://img.shields.io/badge/last%20change-2021--04--26-blue.svg)](https://github.com/michaeldumelle/DumelleEtAl2021STLMM)
 
 ## DumelleEtAl2021STLMM
 
-### A Supplementary R Package to to "A Linear Mixed Model Formulation for Spatio-Temporal Random Processes with Computational Advances for the Product, Sum, and Product-Sum Covariances"
+### A Supplementary R Package to to "A Linear Mixed Model Formulation for Spatio-Temporal Random Processes with Computational Advances for the Product, Sum, and Product-Sum Covariance Functions"
 
 ##### Michael Dumelle<sup>1</sup>, Jay M. Ver Hoef<sup>2</sup>, Claudio Fuentes<sup>1</sup>, Alix Gitelman<sup>1</sup>
 
@@ -14,7 +14,8 @@
 ##### <sup>2</sup>NOAA Fisheries (NMFS) Alaska Fisheries Science Center, Marine Mammal Laboratory, Seattle, WA, USA
 
 ### Abstract
-To properly characterize a spatio-temporal random process, it is necessary to understand the process' dependence structure. It is common to describe this dependence using a single random error having a complicated covariance. Instead of using the single random error approach, we describe spatio-temporal random processes using linear mixed models having several random errors; each random error describes a specific quality of the covariance. This linear mixed model formulation is general and intuitive, and many commonly used covariances can be viewed as special cases of this formulation. We focus on using the linear mixed model formulation to express three covariances: product (separable), sum (linear), and product-sum. We discuss benefits and drawbacks of each covariance and propose novel algorithms using Stegle eigendecompositions, a recursive application of the Sherman-Morrison-Woodbury formula, and Helmert-Wolf blocking to efficiently invert their covariance matrices, even when every spatial location is not observed at every time point. Via a simulation study and an analysis of real temperature data in Oregon, USA, we assess computational and model performance of these covariances when estimated with restricted maximum likelihood and Cressie's weighted least squares approaches. We end by offering guidelines for choosing among combinations of the covariances and estimation methods based on properties of observed data and the desired balance between computational efficiency and model performance. 
+To properly characterize a spatio-temporal random process, it is necessary to understand the process' dependence structure. It is common to describe this dependence using a single random error having a complicated covariance. Instead of using the single random error approach, we describe spatio-temporal random processes using linear mixed models having several random errors; each random error describes a specific quality of the covariance. This linear mixed model formulation is general, intuitive, and contains many commonly used covariance functions as special cases. We focus on using the linear mixed model formulation to express three covariance functions: product (separable), sum (linear), and product-sum. We discuss benefits and drawbacks of each covariance function and propose novel algorithms using Stegle eigendecompositions, a recursive application of the Sherman-Morrison-Woodbury formula, and Helmert-Wolf blocking to efficiently invert their covariance matrices, even when every spatial location is not observed at every time point. Via a simulation study and an analysis of temperature data in Oregon, USA, we assess computational and model performance of these covariance functions when estimated using restricted maximum likelihood (likelihood-based) and Cressie's weighted least squares (semivariogram-based). We end by offering guidelines for choosing among combinations of the covariance functions and estimation methods based on properties of observed data and the desired balance between computational efficiency and model performance. 
+
 
 ### Package Overview
 
