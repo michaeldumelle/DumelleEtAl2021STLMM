@@ -36,10 +36,18 @@ After installation, the associated package files can be located on your machine 
 
 The preprint is available at
 ```
-system.file("preprint/preprint.pdf", package = "DumelleEtAl2021STLMM")
+system.file("preprint/main.pdf", package = "DumelleEtAl2021STLMM")
 ```
 
-or alternatively can be downloaded [here](dummylink).
+or alternatively can be downloaded [here](https://github.com/michaeldumelle/DumelleEtAl2021STLMM/blob/main/inst/preprint/main.pdf).
+
+Supplementary material for the preprint is available at 
+
+```
+system.file("preprint/supplementary.pdf", package = "DumelleEtAl2021STLMM")
+```
+
+or alternatively can be downloaded [here](https://github.com/michaeldumelle/DumelleEtAl2021STLMM/blob/main/inst/preprint/supplementary.pdf).
 
 ### Images
 
