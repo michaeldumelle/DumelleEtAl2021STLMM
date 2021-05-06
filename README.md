@@ -89,6 +89,12 @@ system.file("output/simulations", package = "DumelleEtAl2021STLMM")
 
 ### Data Analysis 
 
+The data can be loaded after installing the R package and running
+```
+library(DumelleEtAl2021STLMM)
+data("or_data")
+```
+
 All R scripts used in the data analysis (Section 6) can be found at
 ```
 system.file("scripts/dataanalysis", package = "DumelleEtAl2021STLMM")
