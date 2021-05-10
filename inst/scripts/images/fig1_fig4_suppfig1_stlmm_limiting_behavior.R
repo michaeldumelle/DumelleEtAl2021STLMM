@@ -2,11 +2,12 @@
 # STLMM Limiting Behavior Images
 
 # set to TRUE if you don't want to write csv's
-write <- FALSE
+write <- TRUE
 
-# load ggplot2 and latex2exp
-library(ggplot2)
+# load tidyverse, latex2exp, and paper package
+library(tidyverse)
 library(latex2exp)
+library(DumelleEtAl2021STLMM)
 
 # Figure 1 (and supplementary 1) ----------------------------------------------
 
@@ -29,9 +30,9 @@ brlen <- 0.08
 
 # epsilon tolerance
 epstol <- 1e-5
-axistext_size <- 25
-legendtext_size <- 25
-annotate_size <- 11
+axistext_size <- 28
+legendtext_size <- 28
+annotate_size <- 12.75
 
 # setting unique distance values
 h_s_seq <- seq(0, s_rangetol, length.out = 200)
@@ -114,25 +115,25 @@ cov_tempx <- ggplot(t_plot_pos) +
   annotate("segment", x = t_rangetol + brspace, xend = t_rangetol + brspace + brlen, y = s_de, yend = s_de, size = 1.5) +
   annotate("segment", x = t_rangetol + brspace + brlen, xend = t_rangetol + brspace + brlen, y = s_de + s_ie, yend = s_de, size = 1.5) +
   annotate("segment", x = t_rangetol + brspace + brlen, xend = t_rangetol + brspace + 2 * brlen, y = s_de + s_ie / 2, yend = s_de + s_ie / 2, size = 1.5) +
-  annotate("text", x = t_rangetol + brspace + 5 * brlen, y = s_de + s_ie / 2, label = TeX("$\\sigma^2_{\\delta}$"), size = annotate_size, color = "black") +
+  annotate("text", x = t_rangetol + brspace + 5 * brlen, y = s_de + s_ie / 2, label = TeX("$\\sigma^2_{\\gamma}$"), size = annotate_size, color = "black") +
   # spatial dependent
   annotate("segment", x = t_rangetol + brspace + 2 * brlen, xend = t_rangetol + brspace + brlen + 2 * brlen, y = s_de, yend = s_de, size = 1.5) +
   annotate("segment", x = t_rangetol + brspace + 2 * brlen, xend = t_rangetol + brspace + brlen + 2 * brlen, y = 0, yend = 0, size = 1.5) +
   annotate("segment", x = t_rangetol + brspace + brlen + 2 * brlen, xend = t_rangetol + brspace + brlen + 2 * brlen, y = s_de, yend = 0, size = 1.5) +
   annotate("segment", x = t_rangetol + brspace + brlen + 2 * brlen, xend = t_rangetol + brspace + 2 * brlen + 2 * brlen, y = s_de / 2, yend = s_de / 2, size = 1.5) +
-  annotate("text", x = t_rangetol + brspace + 5 * brlen + 2 * brlen, y = s_de / 2, label = TeX("$\\sigma^2_{\\gamma}$"), size = annotate_size, color = "black") +
+  annotate("text", x = t_rangetol + brspace + 5 * brlen + 2 * brlen, y = s_de / 2, label = TeX("$\\sigma^2_{\\delta}$"), size = annotate_size, color = "black") +
   # temporal  independent
   annotate("segment", x = -brspace, xend = -(brspace + brlen), y = t_de + t_ie, yend = t_de + t_ie, size = 1.5) +
   annotate("segment", x = -brspace, xend = -(brspace + brlen), y = t_de, yend = t_de, size = 1.5) +
   annotate("segment", x = -(brspace + brlen), xend = -(brspace + brlen), y = t_de + t_ie, yend = t_de, size = 1.5) +
   annotate("segment", x = -(brspace + brlen), xend = 0 - (brspace + 2 * brlen), y = t_de + t_ie / 2, yend = t_de + t_ie / 2, size = 1.5) +
-  annotate("text", x = -(brspace + 5 * brlen), y = t_de + t_ie / 2, label = TeX("$\\sigma^2_{\\tau}$"), size = annotate_size, color = "black") +
+  annotate("text", x = -(brspace + 5 * brlen), y = t_de + t_ie / 2, label = TeX("$\\sigma^2_{\\eta}$"), size = annotate_size, color = "black") +
   # temporal dependent
   annotate("segment", x = -(brspace + 2 * brlen), xend = -(brspace + brlen + 2 * brlen), y = t_de, yend = t_de, size = 1.5) +
   annotate("segment", x = -(brspace + 2 * brlen), xend = -(brspace + brlen + 2 * brlen), y = 0, yend = 0, size = 1.5) +
   annotate("segment", x = -(brspace + brlen + 2 * brlen), xend = -(brspace + brlen + 2 * brlen), y = t_de, yend = 0, size = 1.5) +
   annotate("segment", x = -(brspace + brlen + 2 * brlen), xend = -(brspace + 2 * brlen + 2 * brlen), y = t_de / 2, yend = t_de / 2, size = 1.5) +
-  annotate("text", x = -(brspace + 5 * brlen + 2 * brlen), y = t_de / 2, label = TeX("$\\sigma^2_{\\eta}$"), size = annotate_size, color = "black")
+  annotate("text", x = -(brspace + 5 * brlen + 2 * brlen), y = t_de / 2, label = TeX("$\\sigma^2_{\\tau}$"), size = annotate_size, color = "black")
 
 
 if (write) {
@@ -171,25 +172,25 @@ cov_spx <- ggplot(s_plot_pos) +
   annotate("segment", x = -(brspace), xend = -(brspace + brlen), y = s_de, yend = s_de, size = 1.5) +
   annotate("segment", x = -(brspace + brlen), xend = -(brspace + brlen), y = s_de + s_ie, yend = s_de, size = 1.5) +
   annotate("segment", x = -(brspace + brlen), xend = -(brspace + 2 * brlen), y = s_de + s_ie / 2, yend = s_de + s_ie / 2, size = 1.5) +
-  annotate("text", x = -(brspace + 5 * brlen), y = s_de + s_ie / 2, label = TeX("$\\sigma^2_{\\delta}$"), size = annotate_size, color = "black") +
+  annotate("text", x = -(brspace + 5 * brlen), y = s_de + s_ie / 2, label = TeX("$\\sigma^2_{\\gamma}$"), size = annotate_size, color = "black") +
   # spatial dependent
   annotate("segment", x = -(brspace + 2 * brlen), xend = -(brspace + brlen + 2 * brlen), y = s_de, yend = s_de, size = 1.5) +
   annotate("segment", x = -(brspace + 2 * brlen), xend = -(brspace + brlen + 2 * brlen), y = 0, yend = 0, size = 1.5) +
   annotate("segment", x = -(brspace + brlen + 2 * brlen), xend = -(brspace + brlen + 2 * brlen), y = s_de, yend = 0, size = 1.5) +
   annotate("segment", x = -(brspace + brlen + 2 * brlen), xend = -(brspace + 2 * brlen + 2 * brlen), y = s_de / 2, yend = s_de / 2, size = 1.5) +
-  annotate("text", x = -(brspace + 5 * brlen + 2 * brlen), y = s_de / 2, label = TeX("$\\sigma^2_{\\gamma}$"), size = annotate_size, color = "black") +
+  annotate("text", x = -(brspace + 5 * brlen + 2 * brlen), y = s_de / 2, label = TeX("$\\sigma^2_{\\delta}$"), size = annotate_size, color = "black") +
   # temporal independent
   annotate("segment", x = s_rangetol + brspace, xend = s_rangetol + (brspace + brlen), y = t_de + t_ie, yend = t_de + t_ie, size = 1.5) +
   annotate("segment", x = s_rangetol + brspace, xend = s_rangetol + (brspace + brlen), y = t_de, yend = t_de, size = 1.5) +
   annotate("segment", x = s_rangetol + (brspace + brlen), xend = s_rangetol + (brspace + brlen), y = t_de + t_ie, yend = t_de, size = 1.5) +
   annotate("segment", x = s_rangetol + (brspace + brlen), xend = s_rangetol + (brspace + 2 * brlen), y = t_de + t_ie / 2, yend = t_de + t_ie / 2, size = 1.5) +
-  annotate("text", x = s_rangetol + (brspace + 5 * brlen), y = t_de + t_ie / 2, label = TeX("$\\sigma^2_{\\tau}$"), size = annotate_size, color = "black") +
+  annotate("text", x = s_rangetol + (brspace + 5 * brlen), y = t_de + t_ie / 2, label = TeX("$\\sigma^2_{\\eta}$"), size = annotate_size, color = "black") +
   # temporal dependent
   annotate("segment", x = s_rangetol + (brspace + 2 * brlen), xend = s_rangetol + (brspace + brlen + 2 * brlen), y = t_de, yend = t_de, size = 1.5) +
   annotate("segment", x = s_rangetol + (brspace + 2 * brlen), xend = s_rangetol + (brspace + brlen + 2 * brlen), y = 0, yend = 0, size = 1.5) +
   annotate("segment", x = s_rangetol + (brspace + brlen + 2 * brlen), xend = s_rangetol + (brspace + brlen + 2 * brlen), y = t_de, yend = 0, size = 1.5) +
   annotate("segment", x = s_rangetol + (brspace + brlen + 2 * brlen), xend = s_rangetol + (brspace + 2 * brlen + 2 * brlen), y = t_de / 2, yend = t_de / 2, size = 1.5) +
-  annotate("text", x = s_rangetol + (brspace + 5 * brlen + 2 * brlen), y = t_de / 2, label = TeX("$\\sigma^2_{\\eta}$"), size = annotate_size, color = "black")
+  annotate("text", x = s_rangetol + (brspace + 5 * brlen + 2 * brlen), y = t_de / 2, label = TeX("$\\sigma^2_{\\tau}$"), size = annotate_size, color = "black")
 
 if (write) {
   ggsave(plot = cov_spx, width = 9, height = 7, units = "in", filename = "inst/images/cov_spx.jpeg", dpi = 1200)
@@ -226,25 +227,25 @@ sv_tempx <- ggplot(t_plot_pos) +
   annotate("segment", x = t_rangetol + brspace, xend = t_rangetol + brspace + brlen, y = total_var - s_de, yend = total_var - s_de, size = 1.5) +
   annotate("segment", x = t_rangetol + brspace + brlen, xend = t_rangetol + brspace + brlen, y = total_var - (s_de + s_ie), yend = total_var - s_de, size = 1.5) +
   annotate("segment", x = t_rangetol + brspace + brlen, xend = t_rangetol + brspace + 2 * brlen, y = total_var - (s_de + s_ie / 2), yend = total_var - (s_de + s_ie / 2), size = 1.5) +
-  annotate("text", x = t_rangetol + brspace + 5 * brlen, y = total_var - (s_de + s_ie / 2), label = TeX("$\\sigma^2_{\\delta}$"), size = annotate_size, color = "black") +
+  annotate("text", x = t_rangetol + brspace + 5 * brlen, y = total_var - (s_de + s_ie / 2), label = TeX("$\\sigma^2_{\\gamma}$"), size = annotate_size, color = "black") +
   # spatial dependent
   annotate("segment", x = t_rangetol + brspace + 2 * brlen, xend = t_rangetol + brspace + brlen + 2 * brlen, y = total_var - s_de, yend = total_var - s_de, size = 1.5) +
   annotate("segment", x = t_rangetol + brspace + 2 * brlen, xend = t_rangetol + brspace + brlen + 2 * brlen, y = total_var - 0, yend = total_var - 0, size = 1.5) +
   annotate("segment", x = t_rangetol + brspace + brlen + 2 * brlen, xend = t_rangetol + brspace + brlen + 2 * brlen, y = total_var - s_de, yend = total_var - 0, size = 1.5) +
   annotate("segment", x = t_rangetol + brspace + brlen + 2 * brlen, xend = t_rangetol + brspace + 2 * brlen + 2 * brlen, y = total_var - s_de / 2, yend = total_var - s_de / 2, size = 1.5) +
-  annotate("text", x = t_rangetol + brspace + 5 * brlen + 2 * brlen, y = total_var - s_de / 2, label = TeX("$\\sigma^2_{\\gamma}$"), size = annotate_size, color = "black") +
+  annotate("text", x = t_rangetol + brspace + 5 * brlen + 2 * brlen, y = total_var - s_de / 2, label = TeX("$\\sigma^2_{\\delta}$"), size = annotate_size, color = "black") +
   # temporal  independent
   annotate("segment", x = -brspace, xend = -(brspace + brlen), y = total_var - (t_de + t_ie), yend = total_var - (t_de + t_ie), size = 1.5) +
   annotate("segment", x = -brspace, xend = -(brspace + brlen), y = total_var - t_de, yend = total_var - t_de, size = 1.5) +
   annotate("segment", x = -(brspace + brlen), xend = -(brspace + brlen), y = total_var - (t_de + t_ie), yend = total_var - t_de, size = 1.5) +
   annotate("segment", x = -(brspace + brlen), xend = 0 - (brspace + 2 * brlen), y = total_var - (t_de + t_ie / 2), yend = total_var - (t_de + t_ie / 2), size = 1.5) +
-  annotate("text", x = -(brspace + 5 * brlen), y = total_var - (t_de + t_ie / 2), label = TeX("$\\sigma^2_{\\tau}$"), size = annotate_size, color = "black") +
+  annotate("text", x = -(brspace + 5 * brlen), y = total_var - (t_de + t_ie / 2), label = TeX("$\\sigma^2_{\\eta}$"), size = annotate_size, color = "black") +
   # temporal dependent
   annotate("segment", x = -(brspace + 2 * brlen), xend = -(brspace + brlen + 2 * brlen), y = total_var - t_de, yend = total_var - t_de, size = 1.5) +
   annotate("segment", x = -(brspace + 2 * brlen), xend = -(brspace + brlen + 2 * brlen), y = total_var - 0, yend = total_var - 0, size = 1.5) +
   annotate("segment", x = -(brspace + brlen + 2 * brlen), xend = -(brspace + brlen + 2 * brlen), y = total_var - t_de, yend = total_var - 0, size = 1.5) +
   annotate("segment", x = -(brspace + brlen + 2 * brlen), xend = -(brspace + 2 * brlen + 2 * brlen), y = total_var - t_de / 2, yend = total_var - t_de / 2, size = 1.5) +
-  annotate("text", x = -(brspace + 5 * brlen + 2 * brlen), y = total_var - t_de / 2, label = TeX("$\\sigma^2_{\\eta}$"), size = annotate_size, color = "black")
+  annotate("text", x = -(brspace + 5 * brlen + 2 * brlen), y = total_var - t_de / 2, label = TeX("$\\sigma^2_{\\tau}$"), size = annotate_size, color = "black")
 
 
 if (write) {
@@ -283,25 +284,25 @@ sv_spx <- ggplot(s_plot_pos) +
   annotate("segment", x = -(brspace), xend = -(brspace + brlen), y = total_var - s_de, yend = total_var - s_de, size = 1.5) +
   annotate("segment", x = -(brspace + brlen), xend = -(brspace + brlen), y = total_var - (s_de + s_ie), yend = total_var - s_de, size = 1.5) +
   annotate("segment", x = -(brspace + brlen), xend = -(brspace + 2 * brlen), y = total_var - (s_de + s_ie / 2), yend = total_var - (s_de + s_ie / 2), size = 1.5) +
-  annotate("text", x = -(brspace + 5 * brlen), y = total_var - (s_de + s_ie / 2), label = TeX("$\\sigma^2_{\\delta}$"), size = annotate_size, color = "black") +
+  annotate("text", x = -(brspace + 5 * brlen), y = total_var - (s_de + s_ie / 2), label = TeX("$\\sigma^2_{\\gamma}$"), size = annotate_size, color = "black") +
   # spatial dependent
   annotate("segment", x = -(brspace + 2 * brlen), xend = -(brspace + brlen + 2 * brlen), y = total_var - s_de, yend = total_var - s_de, size = 1.5) +
   annotate("segment", x = -(brspace + 2 * brlen), xend = -(brspace + brlen + 2 * brlen), y = total_var - 0, yend = total_var - 0, size = 1.5) +
   annotate("segment", x = -(brspace + brlen + 2 * brlen), xend = -(brspace + brlen + 2 * brlen), y = total_var - s_de, yend = total_var - 0, size = 1.5) +
   annotate("segment", x = -(brspace + brlen + 2 * brlen), xend = -(brspace + 2 * brlen + 2 * brlen), y = total_var - s_de / 2, yend = total_var - s_de / 2, size = 1.5) +
-  annotate("text", x = -(brspace + 5 * brlen + 2 * brlen), y = total_var - s_de / 2, label = TeX("$\\sigma^2_{\\gamma}$"), size = annotate_size, color = "black") +
+  annotate("text", x = -(brspace + 5 * brlen + 2 * brlen), y = total_var - s_de / 2, label = TeX("$\\sigma^2_{\\delta}$"), size = annotate_size, color = "black") +
   # temporal independent
   annotate("segment", x = s_rangetol + brspace, xend = s_rangetol + (brspace + brlen), y = total_var - (t_de + t_ie), yend = total_var - (t_de + t_ie), size = 1.5) +
   annotate("segment", x = s_rangetol + brspace, xend = s_rangetol + (brspace + brlen), y = total_var - t_de, yend = total_var - t_de, size = 1.5) +
   annotate("segment", x = s_rangetol + (brspace + brlen), xend = s_rangetol + (brspace + brlen), y = total_var - (t_de + t_ie), yend = total_var - t_de, size = 1.5) +
   annotate("segment", x = s_rangetol + (brspace + brlen), xend = s_rangetol + (brspace + 2 * brlen), y = total_var - (t_de + t_ie / 2), yend = total_var - (t_de + t_ie / 2), size = 1.5) +
-  annotate("text", x = s_rangetol + (brspace + 5 * brlen), y = total_var - (t_de + t_ie / 2), label = TeX("$\\sigma^2_{\\tau}$"), size = annotate_size, color = "black") +
+  annotate("text", x = s_rangetol + (brspace + 5 * brlen), y = total_var - (t_de + t_ie / 2), label = TeX("$\\sigma^2_{\\eta}$"), size = annotate_size, color = "black") +
   # temporal dependent
   annotate("segment", x = s_rangetol + (brspace + 2 * brlen), xend = s_rangetol + (brspace + brlen + 2 * brlen), y = total_var - t_de, yend = total_var - t_de, size = 1.5) +
   annotate("segment", x = s_rangetol + (brspace + 2 * brlen), xend = s_rangetol + (brspace + brlen + 2 * brlen), y = total_var - 0, yend = total_var - 0, size = 1.5) +
   annotate("segment", x = s_rangetol + (brspace + brlen + 2 * brlen), xend = s_rangetol + (brspace + brlen + 2 * brlen), y = total_var - t_de, yend = total_var - 0, size = 1.5) +
   annotate("segment", x = s_rangetol + (brspace + brlen + 2 * brlen), xend = s_rangetol + (brspace + 2 * brlen + 2 * brlen), y = total_var - t_de / 2, yend = total_var - t_de / 2, size = 1.5) +
-  annotate("text", x = s_rangetol + (brspace + 5 * brlen + 2 * brlen), y = total_var - t_de / 2, label = TeX("$\\sigma^2_{\\eta}$"), size = annotate_size, color = "black")
+  annotate("text", x = s_rangetol + (brspace + 5 * brlen + 2 * brlen), y = total_var - t_de / 2, label = TeX("$\\sigma^2_{\\tau}$"), size = annotate_size, color = "black")
 
 if (write) {
   ggsave(plot = sv_spx, width = 9, height = 7, units = "in", filename = "inst/images/sv_spx.jpeg", dpi = 1200)
@@ -392,7 +393,7 @@ plot_s_ie <- t_plot_pos$gamma[t_plot_pos$h_s == 10 & t_plot_pos$h_t == max(t_plo
 sv_tempx_ps_reml <- ggplot(t_plot_pos) +
   geom_line(mapping = aes(x = h_t, y = gamma, linetype = as.factor(h_s)), size = 1.5) +
   geom_point(t_plot_zero, mapping = aes(x = h_t, y = gamma), size = 4) +
-  labs(x = TeX("Temporal Distance $(h_t)$"), y = "Semivariance") +
+  labs(x = TeX("Temporal Distance $(h_t)$ in days"), y = "Semivariance") +
   scale_linetype_discrete(name = TeX("Spatial Distance $(h_s)$ in km"), labels = c(bquote(h[s] == 0), bquote(h[s] == 0^"+"), bquote(h[s] == 750), bquote(h[s] == 1500), bquote(h[s] == infinity))) +
   scale_x_continuous(breaks = c(0, 2, 4, 6, 8), labels = c(0, 2, 4, 6, TeX("$\\infty$"))) +
   scale_y_continuous(breaks = c(0, 30, 60, 90, 120), labels = c(0, 30, 60, 90, 120)) +
