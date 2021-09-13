@@ -13,6 +13,10 @@
 ##### <sup>1</sup>Department of Statistics, Oregon State University, Corvallis, OR, USA
 ##### <sup>2</sup>NOAA Fisheries (NMFS) Alaska Fisheries Science Center, Marine Mammal Laboratory, Seattle, WA, USA
 
+### Published Journal Article
+
+The published journal article is available [here](https://www.sciencedirect.com/science/article/abs/pii/S2211675321000208).
+
 ### Abstract
 To properly characterize a spatio-temporal random process, it is necessary to understand the process’ dependence structure. It is common to describe this dependence using a single random error having a complicated covariance. Instead of using the single random error approach, we describe spatio-temporal random processes using linear mixed models having several random errors; each random error describes a specific quality of the covariance. This linear mixed model formulation is general, intuitive, and contains many commonly used covariance functions as special cases. We focus on using the linear mixed model formulation to express three covariance functions: product (separable), sum (linear), and product–sum. We discuss benefits and drawbacks of each covariance function and propose novel algorithms using Stegle eigendecompositions, a recursive application of the Sherman–Morrison–Woodbury formula, and Helmert–Wolf blocking to efficiently invert their covariance matrices, even when every spatial location is not observed at every time point. Via a simulation study and an analysis of temperature data in Oregon, USA, we assess model performance and computational efficiency of these covariance functions when estimated using restricted maximum likelihood (likelihood-based) and Cressie’s weighted least squares (semivariogram-based). We end by offering guidelines for choosing among combinations of the covariance functions and estimation methods based on properties of observed data and the desired balance between model performance and computational efficiency.
 
